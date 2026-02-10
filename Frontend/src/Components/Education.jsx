@@ -6,14 +6,7 @@ import AnimatedContent from "../animations/AnimatedContent";
 import resumeData from "../data/resumeData.json";
 
 const Education = ({ darkMode }) => {
-  const education = [
-    {
-      degree: resumeData.education.degree,
-      institution: resumeData.education.institution,
-      year: resumeData.education.expectedGraduation,
-      description: `CGPA: ${resumeData.education.cgpa}`
-    }
-  ];
+  const education = resumeData.education;
 
   return (
     <section id="education" className={`py-20 px-4 ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
@@ -62,7 +55,7 @@ const Education = ({ darkMode }) => {
                     <div className="flex items-center mb-2">
                       <Calendar className="text-blue-500 mr-2" size={16} />
                       <span className={`text-sm font-medium ${darkMode ? 'text-blue-300' : 'text-blue-600'}`}>
-                        {edu.year}
+                        {edu.duration}
                       </span>
                     </div>
                     <h3 className={`text-xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
@@ -72,7 +65,7 @@ const Education = ({ darkMode }) => {
                       {edu.institution}
                     </h4>
                     <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-                      {edu.description}
+                      {edu.grade}
                     </p>
                   </div>
                 </div>

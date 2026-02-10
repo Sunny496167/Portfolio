@@ -11,12 +11,29 @@
         }
     },
     "summary": "Software Developer skilled in building scalable web applications using React, Node.js, Express, MongoDB, and modern frameworks like NestJS. Experienced in developing full-stack with authentication, payments, real-time features, and cloud deployment. Passionate about clean code, performance optimization, and turning real-world problems into reliable digital solutions.",
-    "education": {
-        "degree": "Bachelor of Technology in Information Technology",
-        "institution": "Techno Main Salt Lake, Kolkata",
-        "expectedGraduation": "Jun 2026",
-        "cgpa": "7.05/10"
-    },
+    "education": [
+        {
+            "id": 1,
+            "degree": "Bachelor of Technology in Information Technology",
+            "institution": "Techno Main Salt Lake, Kolkata",
+            "duration": "Sep 2022 - Jun 2026 (Expected)",
+            "grade": "CGPA: 7.05/10"
+        },
+        {
+            "id": 2,
+            "degree": "Intermediate (12th), Bihar School Examination Board",
+            "institution": "R. K. Sarvoday +2 School, Shahpur, Begusarai, Bihar",
+            "duration": "2018 - 2020",
+            "grade": "Percentage: 90.6%"
+        },
+        {
+            "id": 3,
+            "degree": "Secondary (10th), Bihar School Examination Board",
+            "institution": "R. K. Sarvoday High School, Shahpur, Begusarai, Bihar",
+            "duration": "2017 - 2018",
+            "grade": "Percentage: 73.2%"
+        }
+    ],
     "technicalSkills": {
         "programmingLanguages": [
             "JavaScript (ES6+)",
