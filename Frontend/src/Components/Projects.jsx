@@ -6,57 +6,31 @@ import ScrollReveal from '../animations/ScrollReveal';
 import AnimatedContent from '../animations/AnimatedContent';
 import Magnet from '../animations/Magnet';
 import SpotlightCard from '../animations/SpotlightCard';
+import resumeData from '../data/resumeData.json';
 
 const Projects = ({ darkMode }) => {
-  const projects = [
-    {
-      title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with React, Node.js, and Stripe integration",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
-      tech: ["Angular", "D3.js", "Python", "Firebase"],
-      github: "#",
-      demo: "#"
-    },
-    {
-      title: "Task Management App",
-      description: "Collaborative project management tool with real-time updates and team features",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400&h=250&fit=crop",
-      tech: ["React", "Node.js", "Socket.io", "MongoDB"],
-      github: "#",
-      demo: "#"
-    }
-  ];
+  const projects = resumeData.projects.map(project => ({
+    title: project.name,
+    description: project.description[0], // Use first description line
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop", // Placeholder image
+    tech: project.technologies.slice(0, 4), // Show first 4 technologies
+    github: project.repoUrl || "#",
+    demo: project.liveDemo || project.repoUrl || "#"
+  }));
+
 
   return (
     <section id="projects" className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="max-w-6xl mx-auto">
-        <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+        <FadeContent blur={false} duration={1000} easing="ease-out" initialOpacity={1}>
           <div className="text-center mb-16">
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur={true}
-              baseRotation={3}
-              blurStrength={8}
-              containerClassName="mb-4"
-            >
-              <h2 className={`text-4xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                Featured Projects
-              </h2>
-            </ScrollReveal>
-            <AnimatedContent
-              distance={50}
-              direction="vertical"
-              duration={0.8}
-              ease="power3.out"
-              initialOpacity={0}
-              animateOpacity
-              delay={0.3}
-            >
-              <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
-            </AnimatedContent>
+            <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+              Featured Projects
+            </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
           </div>
         </FadeContent>
-        
+
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
           {projects.map((project, index) => (
             <AnimatedContent
@@ -72,7 +46,7 @@ const Projects = ({ darkMode }) => {
               threshold={0.1}
             >
               <Magnet padding={40} magnetStrength={30}>
-                <SpotlightCard 
+                <SpotlightCard
                   className="h-full"
                   spotlightColor={darkMode ? "rgba(59, 130, 246, 0.15)" : "rgba(59, 130, 246, 0.1)"}
                 >
@@ -99,7 +73,7 @@ const Projects = ({ darkMode }) => {
                         </a>
                       </div>
                     </div>
-                    
+
                     <div className="p-6">
                       <h3 className={`text-xl font-bold mb-3 ${darkMode ? 'text-white' : 'text-gray-900'} group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-600 transition-all duration-300`}>
                         {project.title}
@@ -107,7 +81,7 @@ const Projects = ({ darkMode }) => {
                       <p className={`text-sm mb-4 ${darkMode ? 'text-gray-300' : 'text-gray-600'} group-hover:text-opacity-90 transition-all duration-300`}>
                         {project.description}
                       </p>
-                      
+
                       <div className="flex flex-wrap gap-2 mb-4">
                         {project.tech.map((tech, techIndex) => (
                           <span
@@ -118,7 +92,7 @@ const Projects = ({ darkMode }) => {
                           </span>
                         ))}
                       </div>
-                      
+
                       <div className="flex space-x-4">
                         <a
                           href={project.github}
@@ -142,8 +116,8 @@ const Projects = ({ darkMode }) => {
             </AnimatedContent>
           ))}
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 };
 

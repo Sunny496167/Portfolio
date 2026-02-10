@@ -1,6 +1,7 @@
 // Skills Section Component
 import { useState, useRef, useEffect } from "react";
 import { Code, Server, Database, Wrench } from "lucide-react";
+import resumeData from "../data/resumeData.json";
 
 // FadeContent Component
 const FadeContent = ({
@@ -91,7 +92,7 @@ const AnimatedContent = ({
 
   const getTransform = () => {
     if (inView) return `scale(${scale})`;
-    
+
     const multiplier = reverse ? -1 : 1;
     if (direction === "horizontal") {
       return `translateX(${distance * multiplier}px) scale(${scale})`;
@@ -120,11 +121,11 @@ const Skills = ({ darkMode }) => {
       title: "Frontend",
       icon: Code,
       skills: [
-        { name: "React", level: 90 },
-        { name: "Vue.js", level: 85 },
-        { name: "Angular", level: 80 },
-        { name: "TypeScript", level: 88 },
-        { name: "Tailwind CSS", level: 92 },
+        { name: "React.js", level: 90 },
+        { name: "Redux Toolkit", level: 85 },
+        { name: "HTML5", level: 92 },
+        { name: "CSS3", level: 88 },
+        { name: "Tailwind CSS", level: 90 },
       ]
     },
     {
@@ -132,10 +133,10 @@ const Skills = ({ darkMode }) => {
       icon: Server,
       skills: [
         { name: "Node.js", level: 88 },
-        { name: "Python", level: 85 },
-        { name: "Java", level: 80 },
         { name: "Express.js", level: 90 },
-        { name: "Django", level: 82 },
+        { name: "NestJS", level: 85 },
+        { name: "Java", level: 75 },
+        { name: "REST APIs", level: 92 },
       ]
     },
     {
@@ -143,21 +144,20 @@ const Skills = ({ darkMode }) => {
       icon: Database,
       skills: [
         { name: "MongoDB", level: 88 },
-        { name: "PostgreSQL", level: 85 },
         { name: "MySQL", level: 83 },
+        { name: "SQLite", level: 80 },
         { name: "Redis", level: 78 },
-        { name: "Firebase", level: 85 },
       ]
     },
     {
-      title: "Tools",
+      title: "Tools & Cloud",
       icon: Wrench,
       skills: [
-        { name: "Git", level: 90 },
-        { name: "Docker", level: 82 },
-        { name: "AWS", level: 78 },
-        { name: "Jenkins", level: 75 },
-        { name: "Webpack", level: 85 },
+        { name: "Git & GitHub", level: 90 },
+        { name: "Docker", level: 75 },
+        { name: "GCP Cloud Run", level: 80 },
+        { name: "Vercel", level: 85 },
+        { name: "Postman", level: 88 },
       ]
     }
   ];
@@ -169,14 +169,14 @@ const Skills = ({ darkMode }) => {
       <div className="max-w-6xl mx-auto">
         <FadeContent duration={1000} delay={200}>
           <div className="text-center mb-16">
-            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+            <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
               Skills & Technologies
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
           </div>
         </FadeContent>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {skillCategories.map((category, categoryIndex) => (
             <AnimatedContent
               key={categoryIndex}
@@ -195,7 +195,7 @@ const Skills = ({ darkMode }) => {
                     {category.title}
                   </h3>
                 </div>
-                
+
                 <div className="space-y-4">
                   {category.skills.map((skill, skillIndex) => (
                     <FadeContent
@@ -219,7 +219,7 @@ const Skills = ({ darkMode }) => {
                         <div className={`w-full h-2 rounded-full ${darkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
                           <div
                             className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-1000 ease-out"
-                            style={{ 
+                            style={{
                               width: `${skill.level}%`,
                               transitionDelay: `${600 + categoryIndex * 200 + skillIndex * 100}ms`
                             }}

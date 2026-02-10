@@ -1,0 +1,291 @@
+{
+    "personalInfo": {
+        "name": "Sunny Kumar",
+        "phone": "+91 7549617631",
+        "email": "sunnykumar49617@gmail.com",
+        "profiles": {
+            "linkedin": "https://www.linkedin.com/in/sunny-kumar",
+            "github": "https://github.com/sunnykumar",
+            "leetcode": "https://leetcode.com/sunnykumar",
+            "codechef": "https://www.codechef.com/users/sunnykumar"
+        }
+    },
+    "summary": "Software Developer skilled in building scalable web applications using React, Node.js, Express, MongoDB, and modern frameworks like NestJS. Experienced in developing full-stack with authentication, payments, real-time features, and cloud deployment. Passionate about clean code, performance optimization, and turning real-world problems into reliable digital solutions.",
+    "education": {
+        "degree": "Bachelor of Technology in Information Technology",
+        "institution": "Techno Main Salt Lake, Kolkata",
+        "expectedGraduation": "Jun 2026",
+        "cgpa": "7.05/10"
+    },
+    "technicalSkills": {
+        "programmingLanguages": [
+            "JavaScript (ES6+)",
+            "Java",
+            "C/C++",
+            "Python"
+        ],
+        "frontendTechnologies": [
+            "React.js",
+            "Redux Toolkit",
+            "HTML5",
+            "CSS3",
+            "Tailwind CSS",
+            "Responsive Design",
+            "NextJs"
+        ],
+        "backendTechnologies": [
+            "Node.js",
+            "Express.js",
+            "NestJs",
+            "RESTful APIs",
+            "JWT Authentication",
+            "OAuth 2.0"
+        ],
+        "databases": [
+            "MongoDB",
+            "MySQL",
+            "SQLite",
+            "Redis"
+        ],
+        "developmentTools": [
+            "Git",
+            "GitHub",
+            "Postman",
+            "VS Code"
+        ],
+        "devOpsCloud": [
+            "Docker",
+            "CI/CD Pipelines",
+            "Google Cloud Run",
+            "Render",
+            "Vercel",
+            "Netlify"
+        ],
+        "coreCompetencies": [
+            "Agile Development",
+            "Problem-Solving",
+            "Team Collaboration",
+            "Leadership",
+            "Version Control"
+        ]
+    },
+    "internships": [
+        {
+            "id": 1,
+            "title": "Software Development Engineer Intern",
+            "company": "IQApex Labs",
+            "location": "Kolkata, India",
+            "duration": "Feb 2025 - Apr 2025",
+            "responsibilities": [
+                "Contributed to 3 full-stack MERN applications, developing frontend user interfaces and backend API services",
+                "Engineered 15+ React.js features and implemented 10+ RESTful APIs using Node.js and Express.js framework",
+                "Collaborated with teams using Git/GitHub for version control and participated in code reviews and technical discussions",
+                "Optimized MongoDB database operations and queries, improving application performance and data retrieval efficiency"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Software Development Engineer Intern",
+            "company": "IQVenus Technologies",
+            "location": "Guwahati, India",
+            "duration": "Oct 2024 - Dec 2024",
+            "responsibilities": [
+                "Developed frontend solutions for 2 client-facing projects, focusing on responsive UI/UX enhancements",
+                "Built 12+ reusable and responsive React.js components using Tailwind CSS for consistent design system",
+                "Integrated third-party RESTful APIs and converted Figma mockups into pixel-perfect, cross-browser interfaces",
+                "Ensured mobile-first responsive design, achieving 100% compatibility across desktop, tablet, and mobile devices"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "id": 1,
+            "name": "ECommerce",
+            "repoUrl": "https://github.com/Sunny496167/ECommerce",
+            "description": [
+                "A simple e-commerce project built with HTML, CSS, and JavaScript",
+                "Frontend-based implementation with static styling and interactive JavaScript functionality"
+            ],
+            "technologies": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "AdminDashboard",
+            "repoUrl": "https://github.com/Sunny496167/AdminDashboard",
+            "description": [
+                "A modern admin dashboard built with React and Vite",
+                "Responsive dashboard interface with component-based architecture using Vite for fast development"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "JavaScript",
+                "ESLint",
+                "PostCSS"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Backend",
+            "repoUrl": "https://github.com/Sunny496167/backend",
+            "description": [
+                "First backend project following 'chai aur backend' video series",
+                "Educational backend implementation using vanilla JavaScript and Node.js concepts"
+            ],
+            "technologies": [
+                "JavaScript",
+                "Node.js"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "bankModernApp",
+            "repoUrl": "https://github.com/Sunny496167/bankModernApp",
+            "description": [
+                "Modern banking application interface built with React and Vite",
+                "Full-stack frontend application with responsive design and modern web technologies"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "AppleWeb",
+            "repoUrl": "https://github.com/Sunny496167/AppleWeb",
+            "description": [
+                "Apple-themed web application built with React and Vite",
+                "Modern web design implementation using React framework with Tailwind CSS styling"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "JavaScript",
+                "CSS"
+            ]
+        },
+        {
+            "id": 6,
+            "name": "ExcuseGenerator",
+            "repoUrl": "https://github.com/Sunny496167/ExcuseGenerator",
+            "description": [
+                "Full-stack excuse generator application with separate frontend and backend",
+                "Interactive application that generates excuses with both client-side and server-side components"
+            ],
+            "technologies": [
+                "JavaScript",
+                "HTML",
+                "CSS",
+                "Frontend",
+                "Backend"
+            ]
+        },
+        {
+            "id": 7,
+            "name": "Portfolio",
+            "repoUrl": "https://github.com/Sunny496167/Portfolio",
+            "liveDemo": "https://portfolio-zeta-lyart-vreemwky8.vercel.app",
+            "description": [
+                "Personal portfolio website deployed on Vercel",
+                "Showcase of projects and professional profile using modern web technologies"
+            ],
+            "technologies": [
+                "JavaScript",
+                "Frontend",
+                "Vercel"
+            ]
+        },
+        {
+            "id": 8,
+            "name": "Parkinsons-Disease",
+            "repoUrl": "https://github.com/Sunny496167/Parkinsons-Disease",
+            "liveDemo": "https://parkinsons-disease-rouge.vercel.app",
+            "description": [
+                "Final year project for Parkinson's Disease detection and analysis",
+                "Machine learning-based system with Jupyter notebooks for data analysis and a React frontend for user interface"
+            ],
+            "technologies": [
+                "Jupyter Notebook",
+                "Python",
+                "JavaScript",
+                "React",
+                "Machine Learning",
+                "Data Science",
+                "Vercel"
+            ]
+        },
+        {
+            "id": 9,
+            "name": "AIChoiceHelper",
+            "repoUrl": "https://github.com/Sunny496167/AIChoiceHelper",
+            "description": [
+                "AI-powered choice helper application with interactive features",
+                "Utility application that helps users make decisions using AI assistance"
+            ],
+            "technologies": [
+                "JavaScript",
+                "CSS",
+                "HTML",
+                "DOM Manipulation",
+                "Popup UI"
+            ]
+        },
+        {
+            "id": 10,
+            "name": "classRoomManagement",
+            "repoUrl": "https://github.com/Sunny496167/classRoomManagement",
+            "description": [
+                "Classroom management system built with TypeScript and modern tooling",
+                "Full-featured system for managing classroom activities with Docker support and npm architecture"
+            ],
+            "technologies": [
+                "TypeScript",
+                "CSS",
+                "React",
+                "ESLint",
+                "Docker",
+                "npm"
+            ]
+        }
+    ],
+    "leadership": [
+        {
+            "id": 1,
+            "title": "Tech Team Lead",
+            "organization": "Institution's Innovation Council (IIC) TMSL",
+            "achievements": [
+                "Led 10-member technical team",
+                "Organized events with 150+ participants",
+                "Mentored 10+ students in competitive hackathons"
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Academic Achievement",
+            "achievement": "Secured 1st Position in Senior Secondary (12th) Board Examination with 90.6%"
+        }
+    ],
+    "certifications": [
+        {
+            "id": 1,
+            "name": "SQL (Intermediate)",
+            "issuer": "HackerRank",
+            "description": "Advanced JOINs, aggregation functions, complex subqueries"
+        },
+        {
+            "id": 2,
+            "name": "JavaScript (Basic)",
+            "issuer": "HackerRank",
+            "description": "Core JavaScript concepts and fundamental"
+        }
+    ]
+}
