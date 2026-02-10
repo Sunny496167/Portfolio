@@ -17,10 +17,6 @@ import LoadingPreloader from "./LoadingPreloader";
 import CustomCursor from "./CustomCursor";
 import LoadingAnimation from "../animations/LoadingAnimation";
 
-
-
-
-
 // Main Portfolio App
 const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -81,8 +77,6 @@ const Portfolio = () => {
         <Contact darkMode={darkMode} />
         <Footer darkMode={darkMode} />
       </div>
-
-      
     </div>
   );
 };

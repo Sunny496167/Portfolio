@@ -529,4 +529,54 @@ html {
     .glass-card {
         background: rgba(26, 15, 10, 0.9);
     }
+} 
+ 
+/* ===================================
+   PERFORMANCE OPTIMIZATIONS
+   =================================== */
+
+/* Skeleton Loader Shimmer Animation */
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.loading-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 107, 53, 0.1) 0%,
+        rgba(255, 140, 66, 0.2) 20%,
+        rgba(255, 107, 53, 0.1) 40%,
+        rgba(255, 107, 53, 0.1) 100%
+    );
+    background-size: 1000px 100%;
+    animation: shimmer 2s linear infinite;
+}
+
+/* GPU Acceleration for frequently animated elements */
+.glass-card,
+.animate-float,
+.animate-bounce,
+[class*='hover:scale'],
+[class*='hover:rotate'] {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Optimize scrolling performance */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Force GPU for hover states on desktop */
+@media (hover: hover) {
+    button:hover,
+    a:hover {
+        transform: translateZ(0);
+    }
 }
