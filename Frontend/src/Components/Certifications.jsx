@@ -1,140 +1,142 @@
-// Enhanced Certifications Section Component
-import { useState } from "react";
-import { X } from "lucide-react";
+// Certifications Section Component
+import { Award, BadgeCheck, ShieldCheck, ExternalLink } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
-import ScrollReveal from "../animations/ScrollReveal";
 import AnimatedContent from "../animations/AnimatedContent";
-import Magnet from "../animations/Magnet";
-import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Certifications = ({ darkMode }) => {
-  const [selectedCert, setSelectedCert] = useState(null);
-
-  const certifications = resumeData.certifications.map(cert => ({
-    title: cert.name,
-    issuer: cert.issuer,
-    date: "2024", // Can be added to resumeData later
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop",
-    description: cert.description
-  }));
-
-  console.log('Certifications Data:', resumeData.certifications);
-  console.log('Mapped Certifications:', certifications);
-  console.log('Certifications Length:', certifications.length);
+  const certifications = resumeData.certifications || [];
 
   return (
-    <section id="certifications" className={`py-20 px-4 ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-      <div className="max-w-6xl mx-auto">
-        <FadeContent blur={false} duration={1000} easing="ease-out" initialOpacity={1}>
+    <section id="certifications" className="py-20 px-4 bg-gradient-to-b from-black via-[#1a0f0a] to-black relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl float-animation"></div>
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl float-animation" style={{ animationDelay: '1s' }}></div>
+      </div>
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section Header */}
+        <FadeContent duration={1000}>
           <div className="text-center mb-16">
-            <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-              Certifications
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              Certifications <span className="text-orange-gradient">&</span> Credentials
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] mx-auto rounded-full"></div>
+            <p className="text-[#a0a0a0] mt-4">
+              Recognized skills and validated expertise
+            </p>
           </div>
         </FadeContent>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        {/* Certifications Grid */}
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {certifications.map((cert, index) => (
             <AnimatedContent
-              key={index}
-              distance={80}
+              key={cert.id}
+              distance={40}
               direction="vertical"
-              duration={0.8}
-              ease="back.out(1.4)"
-              initialOpacity={0.5}
+              duration={1}
+              ease="power3.out"
+              initialOpacity={0}
               animateOpacity
-              scale={0.95}
-              delay={0.1 + (index * 0.1)}
-              threshold={0.01}
+              delay={0.2 + (index * 0.15)}
+              threshold={0.2}
             >
-              <Magnet padding={25} magnetStrength={20}>
-                <SpotlightCard
-                  className="h-full"
-                  spotlightColor={darkMode ? "rgba(147, 51, 234, 0.1)" : "rgba(147, 51, 234, 0.08)"}
-                >
-                  <div
-                    onClick={() => setSelectedCert(cert)}
-                    className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 cursor-pointer group h-full`}
-                  >
-                    <div className="relative overflow-hidden rounded-t-xl">
-                      <img
-                        src={cert.image}
-                        alt={cert.title}
-                        className="w-full h-32 object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent group-hover:from-black/60 transition-all duration-300"></div>
-                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
+              <div className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+                {/* Subtle Top Accent */}
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-                    <div className="p-4">
-                      <h3 className={`text-lg font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'} group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-blue-600 transition-all duration-300`}>
-                        {cert.title}
-                      </h3>
-                      <p className={`text-sm mb-2 ${darkMode ? 'text-blue-300' : 'text-blue-600'} group-hover:text-purple-400 transition-colors duration-300`}>
-                        {cert.issuer}
-                      </p>
-                      <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-500'} group-hover:text-gray-600 transition-colors duration-300`}>
-                        {cert.date}
-                      </p>
+                <div className="flex items-start gap-4">
+                  {/* Certificate Icon */}
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 flex items-center justify-center group-hover:orange-glow-sm transition-all duration-300 group-hover:scale-110">
+                      <Award className="w-8 h-8 text-[#ff6b35]" />
                     </div>
                   </div>
-                </SpotlightCard>
-              </Magnet>
+
+                  {/* Certificate Details */}
+                  <div className="flex-1 min-w-0">
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-white group-hover:text-orange-gradient transition-colors mb-2">
+                      {cert.name}
+                    </h3>
+
+                    {/* Platform/Issuer with Badge Icon */}
+                    <div className="flex items-center gap-2 mb-3">
+                      <BadgeCheck className="w-4 h-4 text-[#ff6b35] flex-shrink-0" />
+                      <span className="text-[#e0e0e0] font-medium text-sm">
+                        {cert.issuer}
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    {cert.description && (
+                      <p className="text-[#a0a0a0] text-sm mb-3 leading-relaxed">
+                        {cert.description}
+                      </p>
+                    )}
+
+                    {/* Year/Date and Verification */}
+                    <div className="flex items-center justify-between gap-4 mt-4 pt-3 border-t border-orange-500/10">
+                      {/* Year */}
+                      {cert.year && (
+                        <span className="text-xs text-[#a0a0a0] font-medium">
+                          {cert.year}
+                        </span>
+                      )}
+
+                      {/* Verification Check */}
+                      <div className="flex items-center gap-2">
+                        <ShieldCheck className="w-4 h-4 text-green-500" />
+                        <span className="text-xs text-green-500 font-semibold">Verified</span>
+                      </div>
+                    </div>
+
+                    {/* View Certificate Link (if available) */}
+                    {cert.url && (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 mt-3 text-sm text-[#ff6b35] hover:text-[#ff8c42] transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <span>View Certificate</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* Subtle Corner Glow */}
+                <div className="absolute -bottom-1 -right-1 w-20 h-20 bg-gradient-to-br from-orange-500/0 to-orange-500/10 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </div>
             </AnimatedContent>
           ))}
         </div>
 
-        {/* Enhanced Modal */}
-        {selectedCert && (
-          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setSelectedCert(null)}>
-            <AnimatedContent
-              distance={100}
-              direction="vertical"
-              duration={0.6}
-              ease="back.out(1.4)"
-              initialOpacity={0}
-              animateOpacity
-              scale={0.8}
-            >
-              <div
-                className={`${darkMode ? 'bg-gray-900' : 'bg-white'} rounded-xl shadow-2xl max-w-md w-full transform transition-all duration-300`}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="relative">
-                  <img
-                    src={selectedCert.image}
-                    alt={selectedCert.title}
-                    className="w-full h-48 object-cover rounded-t-xl"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-t-xl"></div>
-                  <button
-                    onClick={() => setSelectedCert(null)}
-                    className="absolute top-4 right-4 p-2 bg-black/50 backdrop-blur-sm rounded-full text-white hover:bg-black/70 transition-all duration-300 transform hover:scale-110 hover:rotate-90"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-
-                <div className="p-6">
-                  <h3 className={`text-2xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
-                    {selectedCert.title}
-                  </h3>
-                  <p className={`text-lg mb-2 ${darkMode ? 'text-blue-300' : 'text-blue-600'}`}>
-                    {selectedCert.issuer}
-                  </p>
-                  <p className={`text-sm mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                    Issued: {selectedCert.date}
-                  </p>
-                  <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'} leading-relaxed`}>
-                    {selectedCert.description}
-                  </p>
-                </div>
+        {/* Bottom Decorative Element */}
+        <AnimatedContent
+          distance={40}
+          direction="vertical"
+          duration={1}
+          ease="power3.out"
+          initialOpacity={0}
+          animateOpacity
+          delay={0.6}
+        >
+          <div className="mt-16 text-center">
+            <div className="inline-flex items-center gap-4 glass-card rounded-full px-6 py-3">
+              <ShieldCheck className="w-5 h-5 text-green-500" />
+              <span className="text-[#e0e0e0] font-medium">All Credentials Verified</span>
+              <div className="flex gap-1">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
               </div>
-            </AnimatedContent>
+            </div>
           </div>
-        )}
+        </AnimatedContent>
       </div>
     </section>
   );

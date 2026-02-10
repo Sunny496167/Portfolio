@@ -274,6 +274,66 @@
             ]
         }
     ],
+    "freelanceProjects": [
+        {
+            "id": 1,
+            "name": "Lylah Perfumes",
+            "client": "Lylah Perfumes",
+            "repoUrl": "https://github.com/Sunny496167/lylahperfumes",
+            "liveUrl": "https://lylahperfumes.com",
+            "description": "E-commerce platform for premium perfume brand with custom product catalog, shopping cart, and checkout system",
+            "technologies": [
+                "React",
+                "Node.js",
+                "MongoDB",
+                "Express",
+                "Stripe",
+                "Tailwind CSS"
+            ],
+            "outcomes": [
+                "Delivered fully functional e-commerce platform",
+                "Integrated payment gateway with 100% uptime",
+                "Responsive design for mobile and desktop"
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Classroom Management System",
+            "client": "Educational Institution",
+            "repoUrl": "https://github.com/Sunny496167/classRoomManagement",
+            "description": "Full-featured classroom management system for tracking student attendance, assignments, and grades",
+            "technologies": [
+                "TypeScript",
+                "React",
+                "CSS",
+                "Docker",
+                "ESLint"
+            ],
+            "outcomes": [
+                "Automated attendance tracking system",
+                "Real-time grade updates for students",
+                "Reduced administrative workload by 40%"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Move Your Skill to Management",
+            "client": "Skill Development Platform",
+            "description": "Platform connecting skilled professionals with management opportunities and career transitions",
+            "technologies": [
+                "React",
+                "Node.js",
+                "PostgreSQL",
+                "Express",
+                "Redux"
+            ],
+            "outcomes": [
+                "User matching algorithm with 85% accuracy",
+                "Onboarded 500+ professionals in first month",
+                "Seamless profile management system"
+            ]
+        }
+    ],
     "leadership": [
         {
             "id": 1,

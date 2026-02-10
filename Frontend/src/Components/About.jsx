@@ -1,152 +1,208 @@
-// components/About.js
-import { Code, Server, Database } from "lucide-react";
+// About Section Component
+import { Code, Lightbulb, Layers, Target } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
-import AnimatedCounter from "../animations/AnimatedCounter";
+import AnimatedContent from "../animations/AnimatedContent";
 import resumeData from "../data/resumeData.json";
 
 const About = ({ darkMode }) => {
-  const skills = [
+  const features = [
     {
-      Icon: Code,
-      title: "Frontend Development",
-      description: "React, Next.js, Tailwind CSS",
-      color: "text-blue-500"
+      icon: Lightbulb,
+      title: "Problem Solving",
+      description: "Breaking down complex challenges into elegant, efficient solutions"
     },
     {
-      Icon: Server,
-      title: "Backend Development",
-      description: "Node.js, Java",
-      color: "text-green-500"
+      icon: Layers,
+      title: "Scalable Systems",
+      description: "Building robust architectures that grow with your business needs"
     },
     {
-      Icon: Database,
-      title: "Database Management",
-      description: "MongoDB, PostgreSQL, MySQL",
-      color: "text-purple-500"
+      icon: Code,
+      title: "Clean Code",
+      description: "Writing maintainable, readable code following best practices"
     }
   ];
 
-  const stats = [
-    { label: "Internships", value: 2, suffix: "" },
-    { label: "Projects Completed", value: resumeData.projects.length, suffix: "+" },
-    { label: "Technologies", value: 20, suffix: "+" },
-    { label: "Code Commits", value: 500, suffix: "+" }
-  ];
-
-  const personalInfo = [
-    { label: "Email", value: resumeData.personalInfo.email },
-    { label: "Phone", value: resumeData.personalInfo.phone },
-    { label: "Education", value: resumeData.education.degree },
-    { label: "CGPA", value: resumeData.education.cgpa }
-  ];
-
   return (
-    <section id="about" className={`py-20 px-4 ${darkMode ? 'bg-gray-900' : 'bg-white'
-      }`}>
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="py-20 px-4 bg-gradient-to-b from-black via-[#1a0f0a] to-black relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-orange-600/5 rounded-full blur-3xl float-animation"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <FadeContent duration={1000} delay={200}>
+        <FadeContent duration={1000}>
           <div className="text-center mb-16">
-            <h2 className={`text-4xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-gray-900'
-              }`}>
-              About Me
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              About <span className="text-orange-gradient">Me</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] mx-auto rounded-full"></div>
           </div>
         </FadeContent>
 
-        {/* Main Content Grid */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left Column - Text Content */}
-          <FadeContent duration={1000} delay={400}>
-            <div className="space-y-6">
-              <p className={`text-lg leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                {resumeData.summary}
-              </p>
-              <p className={`text-lg leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                With hands-on experience from leading tech companies and a strong foundation in full-stack development,
-                I focus on creating meaningful digital experiences that solve real-world problems through innovative
-                and scalable solutions.
-              </p>
+        <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+          {/* Left Side - Developer Avatar Illustration */}
+          <AnimatedContent
+            distance={60}
+            direction="horizontal"
+            duration={1}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            delay={0.2}
+          >
+            <div className="relative">
+              {/* Main Avatar Card */}
+              <div className="glass-card rounded-3xl p-8 lg:p-12 relative overflow-hidden">
+                {/* Orange accent line */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
-              {/* Personal Information Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8">
-                {personalInfo.map((info, index) => (
-                  <FadeContent key={info.label} duration={800} delay={600 + index * 100}>
-                    <div>
-                      <h4 className={`font-semibold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'
-                        }`}>
-                        {info.label}
-                      </h4>
-                      <p className={`${darkMode ? 'text-gray-300' : 'text-gray-600'
-                        }`}>
-                        {info.value}
-                      </p>
+                {/* Developer Illustration */}
+                <div className="flex flex-col items-center justify-center space-y-6">
+                  {/* Avatar with thinking pose */}
+                  <div className="relative">
+                    <div className="w-48 h-48 rounded-full bg-gradient-to-br from-[#ff8c42] to-[#ff6b35] flex items-center justify-center text-6xl font-bold text-white shadow-2xl orange-glow">
+                      {resumeData.personalInfo.name.split(' ').map(n => n[0]).join('')}
                     </div>
-                  </FadeContent>
-                ))}
-              </div>
-            </div>
-          </FadeContent>
+                    {/* Thinking bubbles */}
+                    <div className="absolute -top-4 -right-4 w-8 h-8 bg-orange-500/30 rounded-full animate-pulse"></div>
+                    <div className="absolute -top-8 -right-2 w-4 h-4 bg-orange-500/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                  </div>
 
-          {/* Right Column - Skills Card */}
-          <FadeContent duration={1000} delay={600}>
-            <div className={`rounded-2xl overflow-hidden shadow-2xl ${darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-gray-100 border border-gray-200'
-              } p-8 transform hover:scale-105 transition-transform duration-300`}>
-              <div className="space-y-6">
-                {skills.map((skill, index) => (
-                  <FadeContent key={skill.title} duration={800} delay={800 + index * 200}>
-                    <div className="flex items-center space-x-4 p-4 rounded-lg hover:bg-opacity-50 transition-all duration-300 hover:transform hover:scale-105">
-                      <skill.Icon className={`${skill.color} transition-transform duration-300 hover:rotate-12`} size={28} />
-                      <div>
-                        <h4 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'
-                          }`}>
-                          {skill.title}
-                        </h4>
-                        <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'
-                          }`}>
-                          {skill.description}
-                        </p>
+                  {/* Laptop/Coding illustration */}
+                  <div className="relative">
+                    <div className="w-64 h-40 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] rounded-xl border-2 border-orange-500/30 shadow-2xl">
+                      {/* Screen with code */}
+                      <div className="w-full h-28 bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-t-lg p-4">
+                        <div className="w-full h-full bg-black/60 rounded-sm p-2 font-mono text-xs">
+                          <div className="text-orange-400">&lt;Developer /&gt;</div>
+                          <div className="text-green-400 ml-2">passion: true</div>
+                          <div className="text-blue-400 ml-2">skills: ++</div>
+                          <div className="flex gap-1 mt-2">
+                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
+                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                          </div>
+                        </div>
+                      </div>
+                      {/* Keyboard */}
+                      <div className="px-4 py-2">
+                        <div className="grid grid-cols-12 gap-1">
+                          {[...Array(24)].map((_, i) => (
+                            <div key={i} className="w-2 h-2 bg-gray-700 rounded-sm"></div>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </FadeContent>
-                ))}
+                  </div>
+
+                  <div className="text-center">
+                    <p className="text-orange-500 font-semibold text-lg">Coding with Passion</p>
+                    <p className="text-[#a0a0a0] text-sm">Building the future, one line at a time</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </FadeContent>
+          </AnimatedContent>
+
+          {/* Right Side - Professional Story */}
+          <AnimatedContent
+            distance={60}
+            direction="horizontal"
+            reverse
+            duration={1}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            delay={0.4}
+          >
+            <div className="space-y-6">
+              {/* Main Story Card */}
+              <div className="glass-card rounded-2xl p-8 relative overflow-hidden border-orange-glow">
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#ff6b35] to-[#d94f1f]"></div>
+
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-white mb-4">My Journey</h3>
+                  <p className="text-[#e0e0e0] leading-relaxed">
+                    {resumeData.summary}
+                  </p>
+                </div>
+              </div>
+
+              {/* Passion Statement */}
+              <div className="glass-card rounded-2xl p-6 relative overflow-hidden">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-orange-500/20 rounded-xl">
+                    <Target className="w-6 h-6 text-[#ff6b35]" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white mb-2">What Drives Me</h4>
+                    <p className="text-[#e0e0e0]">
+                      Passionate about transforming complex problems into simple, elegant solutions that make a real-world impact.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Career Focus */}
+              <div className="glass-card rounded-2xl p-6 relative overflow-hidden">
+                <div className="flex items-start gap-4">
+                  <div className="p-3 bg-orange-500/20 rounded-xl">
+                    <Code className="w-6 h-6 text-[#ff6b35]" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-white mb-2">Career Focus</h4>
+                    <p className="text-[#e0e0e0]">
+                      Specializing in full-stack development with modern frameworks, creating scalable applications that deliver exceptional user experiences.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedContent>
         </div>
 
-        {/* Statistics Section */}
-        <FadeContent duration={1000} delay={1000}>
-          <div className={`rounded-2xl p-8 ${darkMode
-            ? 'bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-gray-700'
-            : 'bg-gradient-to-r from-blue-50 to-purple-50 border border-gray-200'
-            }`}>
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-              {stats.map((stat, index) => (
-                <div key={stat.label} className="text-center">
-                  <FadeContent duration={1000} delay={1200 + index * 100}>
-                    <div className={`text-3xl md:text-4xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-gray-900'
-                      }`}>
-                      <AnimatedCounter
-                        end={stat.value}
-                        suffix={stat.suffix}
-                        duration={2000}
-                        delay={1200 + index * 100}
-                      />
-                    </div>
-                    <p className={`text-sm font-medium ${darkMode ? 'text-gray-300' : 'text-gray-600'
-                      }`}>
-                      {stat.label}
-                    </p>
-                  </FadeContent>
+        {/* Feature Icons Section */}
+        <AnimatedContent
+          distance={40}
+          direction="vertical"
+          duration={1}
+          ease="power3.out"
+          initialOpacity={0}
+          animateOpacity
+          delay={0.6}
+        >
+          <div className="grid md:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="glass-card rounded-2xl p-8 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2"
+              >
+                {/* Orange accent on hover */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+
+                <div className="text-center space-y-4">
+                  {/* Icon */}
+                  <div className="w-16 h-16 mx-auto bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-2xl flex items-center justify-center group-hover:orange-glow-sm transition-all duration-300">
+                    <feature.icon className="w-8 h-8 text-[#ff6b35]" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-white group-hover:text-orange-gradient transition-colors">
+                    {feature.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-[#a0a0a0] leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-        </FadeContent>
+        </AnimatedContent>
       </div>
     </section>
   );
