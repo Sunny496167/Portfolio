@@ -89,15 +89,16 @@ const CustomCursor = () => {
         <>
             {/* Outer Ring with Delay */}
             <div
-                className="fixed pointer-events-none z-[99999] mix-blend-difference transition-all duration-200 ease-out"
+                className="fixed top-0 left-0 pointer-events-none z-[99999] mix-blend-difference transition-all duration-200 ease-out"
                 style={{
                     left: `${position.x}px`,
                     top: `${position.y}px`,
                     transform: `translate(-50%, -50%) scale(${cursorState === 'button' ? 1.5 : cursorState === 'card' ? 1.3 : 1})`,
+                    pointerEvents: 'none',
                 }}
             >
                 <div
-                    className={`w-10 h-10 rounded-full border-2 transition-all duration-300 ${cursorState === 'button'
+                    className={`w-10 h-10 rounded-full border-2 transition-all duration-300 pointer-events-none ${cursorState === 'button'
                         ? 'border-[#ff6b35] shadow-[0_0_20px_rgba(255,107,53,0.8)]'
                         : cursorState === 'link'
                             ? 'border-[#ff8c42] shadow-[0_0_15px_rgba(255,140,66,0.6)]'
@@ -105,65 +106,71 @@ const CustomCursor = () => {
                                 ? 'border-[#ff6b35] shadow-[0_0_15px_rgba(255,107,53,0.6)]'
                                 : 'border-[#ff6b35]/50 shadow-[0_0_10px_rgba(255,107,53,0.4)]'
                         }`}
+                    style={{ pointerEvents: 'none' }}
                 ></div>
             </div>
 
             {/* Inner Dot */}
             <div
-                className="fixed pointer-events-none z-[99999] transition-transform duration-100 ease-out"
+                className="fixed top-0 left-0 pointer-events-none z-[99999] transition-transform duration-100 ease-out"
                 style={{
                     left: `${dotPosition.x}px`,
                     top: `${dotPosition.y}px`,
                     transform: `translate(-50%, -50%) scale(${cursorState !== 'default' ? 0.5 : 1})`,
+                    pointerEvents: 'none',
                 }}
             >
                 <div
-                    className={`w-2 h-2 rounded-full transition-all duration-200 ${cursorState === 'button'
+                    className={`w-2 h-2 rounded-full transition-all duration-200 pointer-events-none ${cursorState === 'button'
                         ? 'bg-[#ff6b35] shadow-[0_0_15px_rgba(255,107,53,1)]'
                         : cursorState === 'link'
                             ? 'bg-[#ff8c42] shadow-[0_0_12px_rgba(255,140,66,0.8)]'
                             : 'bg-[#ff6b35] shadow-[0_0_10px_rgba(255,107,53,0.8)]'
                         }`}
+                    style={{ pointerEvents: 'none' }}
                 ></div>
             </div>
 
             {/* Icon/State Indicator */}
             {cursorState === 'button' && (
                 <div
-                    className="fixed pointer-events-none z-[99999] transition-all duration-200"
+                    className="fixed top-0 left-0 pointer-events-none z-[99999] transition-all duration-200"
                     style={{
                         left: `${position.x}px`,
                         top: `${position.y - 25}px`,
                         transform: 'translateX(-50%)',
+                        pointerEvents: 'none',
                     }}
                 >
-                    <div className="text-xs text-[#ff6b35] font-bold animate-bounce">👆</div>
+                    <div className="text-xs text-[#ff6b35] font-bold animate-bounce pointer-events-none" style={{ pointerEvents: 'none' }}>👆</div>
                 </div>
             )}
 
             {cursorState === 'link' && (
                 <div
-                    className="fixed pointer-events-none z-[99999] transition-all duration-200"
+                    className="fixed top-0 left-0 pointer-events-none z-[99999] transition-all duration-200"
                     style={{
                         left: `${position.x}px`,
                         top: `${position.y + 20}px`,
                         transform: 'translateX(-50%)',
+                        pointerEvents: 'none',
                     }}
                 >
-                    <div className="h-0.5 w-8 bg-gradient-to-r from-transparent via-[#ff6b35] to-transparent"></div>
+                    <div className="h-0.5 w-8 bg-gradient-to-r from-transparent via-[#ff6b35] to-transparent pointer-events-none" style={{ pointerEvents: 'none' }}></div>
                 </div>
             )}
 
             {cursorState === 'card' && (
                 <div
-                    className="fixed pointer-events-none z-[99999] transition-all duration-200"
+                    className="fixed top-0 left-0 pointer-events-none z-[99999] transition-all duration-200"
                     style={{
                         left: `${position.x}px`,
                         top: `${position.y}px`,
                         transform: 'translate(-50%, -50%)',
+                        pointerEvents: 'none',
                     }}
                 >
-                    <div className="text-[#ff6b35] font-mono text-xs opacity-50">{'{}'}</div>
+                    <div className="text-[#ff6b35] font-mono text-xs opacity-50 pointer-events-none" style={{ pointerEvents: 'none' }}>{'{}'}</div>
                 </div>
             )}
 
@@ -175,6 +182,11 @@ const CustomCursor = () => {
         
         a, button, input, textarea, select {
           cursor: none !important;
+        }
+
+        /* Ensure cursor elements never block interactions */
+        [class*="fixed"][class*="pointer-events-none"] * {
+          pointer-events: none !important;
         }
 
         /* Mobile - Show default cursor */
