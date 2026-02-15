@@ -63,10 +63,14 @@ const Hero = ({ darkMode }) => {
                 <Briefcase size={22} className="group-hover:rotate-12 transition-transform" />
                 <span>Hire Me</span>
               </a>
-              <button className="border-2 border-[#ff6b35] text-[#ff6b35] px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-[#ff6b35]/10 min-h-[56px] orange-glow-hover flex items-center justify-center gap-3">
+              <a
+                href="/src/data/Sunny Kumar_Resume.pdf"
+                download="Sunny_Kumar_Resume.pdf"
+                className="border-2 border-[#ff6b35] text-[#ff6b35] px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-[#ff6b35]/10 min-h-[56px] orange-glow-hover flex items-center justify-center gap-3"
+              >
                 <Download size={22} />
                 <span>Download Resume</span>
-              </button>
+              </a>
             </div>
           </div>
 

@@ -4,7 +4,7 @@
         "phone": "+91 7549617631",
         "email": "sunnykumar49617@gmail.com",
         "profiles": {
-            "linkedin": "www.linkedin.com/in/sunny-kumar-78606b252",
+            "linkedin": "https://www.linkedin.com/in/sunny-kumar-78606b252",
             "github": "https://github.com/Sunny496167",
             "leetcode": "https://leetcode.com/u/sunnykumar851129/",
             "codechef": "https://www.codechef.com/users/sunnydev"
@@ -134,7 +134,7 @@
             "id": 2,
             "name": "AdminDashboard",
             "repoUrl": "https://github.com/Sunny496167/AdminDashboard",
-            "liveDemo":"https://sunny496167.github.io/AdminDashboard/",
+            "liveDemo": "https://sunny496167.github.io/AdminDashboard/",
             "description": [
                 "A modern admin dashboard built with React and Vite",
                 "Responsive dashboard interface with component-based architecture using Vite for fast development"
@@ -165,7 +165,7 @@
             "id": 4,
             "name": "bankModernApp",
             "repoUrl": "https://github.com/Sunny496167/bankModernApp",
-            "liveDemo":"https://sunny496167.github.io/bankModernApp/",
+            "liveDemo": "https://sunny496167.github.io/bankModernApp/",
             "description": [
                 "Modern banking application interface built with React and Vite",
                 "Full-stack frontend application with responsive design and modern web technologies"

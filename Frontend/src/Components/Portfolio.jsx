@@ -7,6 +7,7 @@ import Skills from "./Skills";
 import Experience from "./Experiance";
 import Freelance from "./Freelance";
 import Projects from "./Projects";
+import Blogs from "./Blogs";
 import Certifications from "./Certifications";
 import Achievements from "./Achievements";
 import Contact from "./Contact";
@@ -26,7 +27,7 @@ const Portfolio = () => {
   // Handle scroll-based section detection
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'education', 'skills', 'experience', 'freelance', 'projects', 'certifications', 'achievements', 'contact'];
+      const sections = ['hero', 'about', 'education', 'skills', 'experience', 'freelance', 'projects', 'blogs', 'certifications', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -71,6 +72,7 @@ const Portfolio = () => {
         <Experience darkMode={darkMode} />
         <Freelance darkMode={darkMode} />
         <Projects darkMode={darkMode} />
+        <Blogs darkMode={darkMode} />
         <Certifications darkMode={darkMode} />
         <Achievements darkMode={darkMode} />
         <Contact darkMode={darkMode} />

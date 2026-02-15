@@ -1,6 +1,6 @@
 // Custom Side Scrollbar Component
 import { useState, useEffect } from "react";
-import { Home, Code2, Mail, User, Briefcase, Award } from "lucide-react";
+import { Home, Code2, Mail, User, Briefcase, Award, BookOpen } from "lucide-react";
 
 const ScrollProgress = ({ activeSection }) => {
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -32,6 +32,7 @@ const ScrollProgress = ({ activeSection }) => {
         { id: 'skills', icon: Code2, label: 'Skills' },
         { id: 'experience', icon: Briefcase, label: 'Experience' },
         { id: 'projects', icon: Award, label: 'Projects' },
+        { id: 'blogs', icon: BookOpen, label: 'Blogs' },
         { id: 'contact', icon: Mail, label: 'Contact' }
     ];
 
