@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Download, Briefcase } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import resumeData from "../data/resumeData.json";
+import TextType from "../animations/TextType";
 
 const Hero = ({ darkMode }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,14 +39,13 @@ const Hero = ({ darkMode }) => {
           <div className={`text-left space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
             {/* Headline */}
             <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="block text-white mb-2">Hey, I'm</span>
                 <span className="block text-orange-gradient text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
                   {resumeData.personalInfo.name}
                 </span>
-                <span className="block text-white mt-2">Software / Web</span>
-                <span className="block text-white">Developer</span>
-              </h1>
+                <TextType text={["Software Developer", "Web Developer"]} />
+              </h3>
 
               <p className="text-lg sm:text-xl text-[#e0e0e0] max-w-xl leading-relaxed mt-6">
                 {resumeData.summary}
@@ -54,10 +54,15 @@ const Hero = ({ darkMode }) => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <button className="btn-orange-gradient text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 min-h-[56px] group flex items-center justify-center gap-3">
+              <a
+                href={resumeData.personalInfo.profiles.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-orange-gradient text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 min-h-[56px] group flex items-center justify-center gap-3"
+              >
                 <Briefcase size={22} className="group-hover:rotate-12 transition-transform" />
                 <span>Hire Me</span>
-              </button>
+              </a>
               <button className="border-2 border-[#ff6b35] text-[#ff6b35] px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-[#ff6b35]/10 min-h-[56px] orange-glow-hover flex items-center justify-center gap-3">
                 <Download size={22} />
                 <span>Download Resume</span>

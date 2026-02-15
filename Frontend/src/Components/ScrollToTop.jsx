@@ -58,8 +58,8 @@ const ScrollToTop = () => {
                 onMouseEnter={() => setShowTooltip(true)}
                 onMouseLeave={() => setShowTooltip(false)}
                 className={`fixed z-50 group transition-all duration-500 ease-out ${isVisible
-                        ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
-                        : 'opacity-0 translate-y-10 scale-75 pointer-events-none'
+                    ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+                    : 'opacity-0 translate-y-10 scale-75 pointer-events-none'
                     } ${isAnimating ? 'animate-pulse' : ''
                     }
         bottom-6 right-6 sm:bottom-8 sm:right-8
@@ -109,8 +109,8 @@ const ScrollToTop = () => {
                     </defs>
                 </svg>
 
-                {/* Arrow Icon with Upward Animation */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ${isAnimating ? 'animate-bounce' : 'group-hover:-translate-y-1'
+                {/* Arrow Icon */}
+                <div className={`absolute inset-0 flex items-center justify-center transition-transform duration-300 ${isAnimating ? 'animate-bounce' : ''
                     }`}>
                     <ArrowUp className="w-6 h-6 sm:w-7 sm:h-7 text-[#ff6b35] group-hover:text-[#ff8c42] transition-colors" />
                 </div>

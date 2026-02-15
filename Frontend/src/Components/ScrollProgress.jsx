@@ -83,9 +83,10 @@ const ScrollProgress = ({ activeSection }) => {
                                 <button
                                     onClick={() => scrollToSection(section.id)}
                                     className={`w-3 h-3 rounded-full transition-all duration-300 ${isActive
-                                            ? 'bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] scale-125 shadow-[0_0_12px_rgba(255,107,53,0.8)]'
-                                            : 'bg-orange-500/30 hover:bg-orange-500/50 hover:scale-110'
+                                        ? 'bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] scale-125 shadow-[0_0_12px_rgba(255,107,53,0.8)]'
+                                        : 'bg-orange-500/30'
                                         } ${isActive && isScrolling ? 'animate-pulse' : ''}`}
+                                    style={{ transform: isActive ? undefined : 'none' }}
                                     aria-label={`Scroll to ${section.label}`}
                                 >
                                     {/* Active Pulse Ring */}
@@ -97,8 +98,8 @@ const ScrollProgress = ({ activeSection }) => {
                                 {/* Section Label on Hover */}
                                 <div
                                     className={`absolute right-6 top-1/2 -translate-y-1/2 transition-all duration-300 ${hoveredSection === section.id || isActive
-                                            ? 'opacity-100 translate-x-0'
-                                            : 'opacity-0 translate-x-4 pointer-events-none'
+                                        ? 'opacity-100 translate-x-0'
+                                        : 'opacity-0 translate-x-4 pointer-events-none'
                                         }`}
                                 >
                                     <div className="glass-card rounded-lg px-3 py-2 flex items-center gap-2 whitespace-nowrap border-orange-glow">

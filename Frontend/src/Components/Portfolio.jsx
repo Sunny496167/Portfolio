@@ -14,7 +14,7 @@ import Footer from "./Footer";
 import ScrollProgress from "./ScrollProgress";
 import ScrollToTop from "./ScrollToTop";
 import LoadingPreloader from "./LoadingPreloader";
-import CustomCursor from "./CustomCursor";
+
 import LoadingAnimation from "../animations/LoadingAnimation";
 
 // Main Portfolio App
@@ -56,8 +56,7 @@ const Portfolio = () => {
 
   return (
     <div className={`${darkMode ? 'dark' : ''}`}>
-      {/* Custom Cursor */}
-      <CustomCursor />
+
 
       {/* Scroll to Top Button */}
       <ScrollToTop />

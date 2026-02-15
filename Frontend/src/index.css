@@ -129,7 +129,6 @@ body {
         background: linear-gradient(135deg, #ff8c42 0%, #ff6b35 100%);
         box-shadow: 0 0 30px rgba(255, 107, 53, 0.6),
             0 0 60px rgba(255, 107, 53, 0.4);
-        transform: translateY(-2px);
     }
 
     /* Floating Animation */
@@ -311,7 +310,6 @@ html {
     }
 
     .card-hover:hover {
-        transform: translateY(-8px) scale(1.02);
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
             0 0 20px rgba(255, 107, 53, 0.3);
     }
@@ -321,7 +319,6 @@ html {
     }
 
     .card-hover-subtle:hover {
-        transform: translateY(-4px);
         box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
     }
 
@@ -330,9 +327,6 @@ html {
         transition: all 0.3s ease;
     }
 
-    .btn-hover-lift:hover {
-        transform: translateY(-3px) scale(1.05);
-    }
 
     .btn-hover-glow {
         position: relative;
@@ -433,10 +427,6 @@ html {
         }
     }
 
-    /* Smaller hover effects on mobile */
-    .card-hover:hover {
-        transform: translateY(-4px) scale(1.01);
-    }
 
     /* Optimize scrollbar for mobile */
     ::-webkit-scrollbar {
@@ -445,11 +435,7 @@ html {
 }
 
 /* Tablet Optimizations */
-@media (min-width: 769px) and (max-width: 1024px) {
-    .card-hover:hover {
-        transform: translateY(-6px) scale(1.015);
-    }
-}
+@media (min-width: 769px) and (max-width: 1024px) {}
 
 /* Desktop Enhancements */
 @media (min-width: 1025px) {
@@ -530,6 +516,7 @@ html {
         background: rgba(26, 15, 10, 0.9);
     }
 }
+
 /* ===================================
    PERFORMANCE OPTIMIZATIONS
    =================================== */
@@ -573,6 +560,7 @@ html {
 
 /* Force GPU for hover states on desktop */
 @media (hover: hover) {
+
     button:hover,
     a:hover {
         transform: translateZ(0);
