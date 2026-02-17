@@ -1,0 +1,130 @@
+# The Journey of Building Lylah Perfumes — A Freelance Full-Stack Project
+
+**By Sunny Kumar · October 2025**
+
+---
+
+Some projects are practice runs. Others teach you what you're actually made of. Lylah Perfumes was the latter — a full-stack e-commerce platform built under real freelance pressure, for a real client, with a real deadline. This isn't a tutorial recap. It's the honest story of what I built, what broke, what I fixed, and what I walked away knowing that I didn't know before.
+
+If you're a developer building your first serious production project, or a freelancer navigating your first complex client engagement, I hope something here saves you hours of debugging or helps you make a better architectural call than I did on my first try.
+
+---
+
+## What Is Lylah Perfumes?
+
+Lylah Perfumes is a premium fragrance e-commerce platform — not a simple product listing site, but a complete digital commerce system. Customers can browse a catalogue, create accounts, manage wishlists, apply coupon codes, pay securely, and track their orders. On the other side, admins get a full dashboard for managing products, orders, users, coupons, and customer inquiries.
+
+The tech stack I chose:
+
+- **Frontend:** React 18 with Vite, Tailwind CSS, Framer Motion for animations, Context API for state management
+- **Backend:** Node.js with Express, JWT authentication, Google OAuth 2.0, rate limiting, Helmet.js for security headers
+- **Database & Caching:** MongoDB with Mongoose, Redis for caching and session management
+- **Third-Party Services:** Cloudinary for image management, Cashfree for payments, Nodemailer with Gmail SMTP for emails
+- **Deployment:** Frontend on Vercel, backend containerized and deployed on Google Cloud Run, MongoDB Atlas, Redis Cloud
+
+Each of these was a deliberate choice. Let me walk you through the reasoning — and where reality differed from the plan.
+
+---
+
+## The Challenges Nobody Talks About
+
+### 1. Guest Users and the Cart Merge Problem
+
+Standard UX says users should be able to add products to a cart and wishlist before they log in. That's the easy part. The hard part is: what happens when they do log in?
+
+All the data they built up as a guest — cart items, wishlist products — has to merge cleanly with their account. If they already had a saved cart from a previous session, you can't just overwrite it. You need to reconcile the two.
+
+My approach was to assign every guest session a temporary token stored in localStorage, and track their cart and wishlist against that token on the backend. On login or registration, I'd fetch both the guest state and the authenticated user's existing state and merge them — checking for duplicate product IDs and combining quantities where appropriate. The edge cases were real: same product added in both sessions, items that had gone out of stock between sessions, wishlist items that were already in the cart.
+
+**What I learned:** Think through data ownership from the start. Guest state isn't throwaway — treat it as a first-class user record that eventually gets promoted or merged.
+
+---
+
+### 2. Authentication Breaking on HTTP — and Why It Happened Twice
+
+Google OAuth worked perfectly in local development. In production on Render, it broke. The login flow would initiate, the Google consent screen would appear, and then... nothing. No error. Just a silent redirect back to the homepage, not logged in.
+
+The root cause was a combination of things. Render's infrastructure serves requests internally over HTTP, and Express wasn't configured to trust the proxy correctly. This meant `req.secure` returned false, so cookies with the `Secure` flag weren't being set. The OAuth state parameter also wasn't surviving the redirect because of how the session was being stored.
+
+The fix required three things: setting `app.set('trust proxy', 1)` in Express so it correctly reads the forwarded protocol headers, updating cookie options to set `secure: true` only in production and `sameSite: 'none'` for cross-origin cookies, and ensuring the Google Cloud Console redirect URIs matched exactly — including trailing slashes, HTTP vs HTTPS, and the exact domain.
+
+**What I learned:** Never assume your local auth setup will behave identically in production. HTTP vs HTTPS, proxy layers, and cookie flags interact in ways that only surface when you deploy. Test auth in a staging environment that mirrors production as closely as possible.
+
+---
+
+### 3. Safari and Ula Refused to Load — Cart, Wishlist, and Auth All Broke
+
+Chrome worked. Firefox worked. Then I opened Safari — broken. Opened Ula — also broken. And it wasn't just the site failing to load. Three separate features collapsed at once: add to cart, wishlist, and authentication.
+
+No obvious console errors. Requests were going out, but nothing was sticking.
+
+The root cause was browser-level privacy protections. Safari's Intelligent Tracking Prevention (ITP) blocks third-party cookies by default. Ula applies similar restrictions. My backend was on a different domain than the frontend, so every cookie I was setting — whether for auth sessions, cart persistence, or wishlist state — was being silently classified as third-party and blocked. The browser received the responses but refused to store or send the cookies back, so every request looked like it was coming from a fresh unauthenticated guest with an empty cart.
+
+This is why the cart and wishlist merging also broke in these browsers specifically. The guest session token I stored in a cookie to track pre-login state wasn't surviving between requests. Every page load looked like a brand new guest, so there was nothing to merge on login. The merge logic itself was correct — the browser just wasn't giving it anything to work with.
+
+Fixing it required changes at multiple levels. I moved away from relying on cookies for cross-origin state and shifted to storing the JWT and guest session token in `localStorage`, sent via `Authorization` headers on every request. For cases where cookies were still necessary, I set `SameSite=None; Secure` explicitly and ensured both the frontend and backend were served over HTTPS — because `SameSite=None` requires a secure context or browsers reject it outright. I also audited the CORS configuration: `credentials: true` in CORS headers requires `Access-Control-Allow-Origin` to be a specific domain, not a wildcard — something that's easy to miss and breaks silently.
+
+After these changes, all three features — auth, cart, and wishlist — worked correctly in Safari and Ula.
+
+**What I learned:** Test in Safari and Ula from the very beginning of development, not after everything else is done. They have meaningfully stricter cookie and cross-origin policies than Chrome, and the failures are silent — no loud errors, just state that quietly doesn't persist. If your app depends on cross-origin cookies for anything, those browsers will expose that dependency immediately.
+
+---
+
+### 4. Deploying to Google Cloud Run
+
+I'd deployed to Heroku and Render before. Google Cloud Run was a different experience. Cloud Run runs stateless containers — you write a Dockerfile, push the image to Google Artifact Registry, and Cloud Run manages scaling. The appeal is real: it scales to zero when idle, and scales up automatically under load.
+
+What I didn't anticipate was how much the containerization process exposed about my app's assumptions. Environment variables that worked fine as a `.env` file needed to be injected through Cloud Run's Secret Manager or environment configuration. The health check endpoint Cloud Run expects had to be explicitly built — it calls a specific path to determine if the container is healthy, and if that path returns anything other than a 200, it marks the instance as unhealthy and keeps trying to restart it.
+
+Cold starts were another issue. When the container scales down to zero and a new request comes in, there's a startup delay. For an e-commerce site, this is noticeable. I added a keep-alive ping on the frontend to prevent the container from going fully cold during expected traffic hours, which helped significantly.
+
+**What I learned:** Containerizing your backend is worth it — it makes your app portable and the deployment process repeatable. But it forces you to confront assumptions you didn't know you were making about file system access, environment config, and startup behavior.
+
+---
+
+## Features I'm Proud Of
+
+### The Coupon System
+
+On the surface a coupon code input is simple. Underneath, it's a surprisingly complex system. Lylah's coupon engine supports percentage-based and fixed-amount discounts, minimum order value requirements, per-user usage limits, total usage caps across all users, and expiration timestamps. The admin dashboard shows real-time usage counts and can bulk-generate coupon batches for campaigns.
+
+The validation logic runs on the backend — never trust the client to validate discounts. Every checkout submission goes through a coupon verification step that checks: does this code exist, is it active, has it expired, has the user already hit their personal limit, has the total redemption cap been reached, and does the order value meet the minimum threshold. Only if all conditions pass does the discount apply.
+
+### Email Notifications
+
+The entire order lifecycle is communicated by email. Order confirmed, order shipped, order delivered — each triggers a template email to the customer. Admins receive notifications when new contact form submissions or inquiries arrive. Using Nodemailer with Gmail SMTP, I built a simple email utility that the rest of the application calls as a service. Handling failures gracefully mattered: if an email send fails, it logs the error and continues — a failed email shouldn't block an order from being placed.
+
+### The Admin Dashboard
+
+This isn't a demo dashboard with hardcoded numbers. It's a working operations tool the client uses daily. Sales analytics with revenue broken down by period, order management with status updates, user activity logs, coupon performance tracking, and a contact inbox with status management (pending, in progress, resolved). Building it forced me to think carefully about aggregation queries in MongoDB and making sure the dashboard didn't become a performance bottleneck as data grew.
+
+### Image Management with Cloudinary
+
+Every product image is uploaded directly to Cloudinary via a signed upload preset. The backend never stores raw image files — only the Cloudinary URLs. This means images are served from a CDN, automatically optimized for format and quality, and transformable on-the-fly (different sizes for thumbnails vs product detail pages). It keeps the backend stateless and image serving fast.
+
+---
+
+## What I Learned
+
+**State management at scale.** When you have cart state, wishlist state, auth state, and checkout state all in the same application, Context API starts showing its limits. I learned when to split contexts to avoid unnecessary re-renders and when a single consolidated context is cleaner. Naming conventions and keeping context providers close to the components that use them made a real difference.
+
+**Payment integration is about edge cases.** Cashfree integration is straightforward at the happy path. The work is in the edge cases: payment initiated but user closes the tab, payment captured but webhook delayed, order placed but payment status pending. Every state transition needs to be handled explicitly, and your database state needs to stay consistent even when the payment gateway has a hiccup. Idempotent webhook handlers are not optional.
+
+**Production security is a checklist, not an afterthought.** Rate limiting on every public endpoint, bcrypt for password hashing, input validation with Validator.js on every incoming request, Helmet.js for security headers, CORS configured to specific origins — these aren't impressive features, they're baseline requirements. Building them in from the start is much easier than retrofitting them.
+
+**Freelance time management is a different skill.** Technical ability gets you to a working prototype. The professional skill is scoping features accurately, communicating progress honestly, knowing when something is good enough to ship versus when it genuinely needs more work, and delivering on time even when something unexpected breaks two days before the deadline. No tutorial teaches this. You learn it by doing it.
+
+---
+
+## Final Thoughts
+
+Lylah Perfumes is live at [lylahperfumes.com](https://lylahperfumes.com). Real people shop on it. Real orders are fulfilled. The client runs their business on it every day.
+
+That's what made this project matter more than any personal project I've built — not the tech stack, not the architecture decisions, but the fact that it works for someone else's livelihood. That accountability changed how I approached every decision, every edge case, every deployment.
+
+If you're about to build something similar — a full-stack e-commerce platform, a freelance project with real stakes, your first production deployment — my advice is simple: test in every browser early, design your auth flow for production from day one, and treat your deadline as fixed even when the scope tries to grow. The technical problems are solvable. The discipline is what separates projects that ship from ones that don't.
+
+---
+
+*Built with React, Node.js, MongoDB, and a lot of late nights.*
+*— Sunny Kumar, Full-Stack Developer*

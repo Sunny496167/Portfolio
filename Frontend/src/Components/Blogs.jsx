@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Calendar, Clock, Tag, ArrowRight, BookOpen } from "lucide-react";
 import blogsData from "../data/blogs.json";
 import BlogDetail from "./BlogDetail";
+import SpotlightCard from "../animations/SpotlightCard";
 
 const Blogs = ({ darkMode }) => {
     const [selectedBlog, setSelectedBlog] = useState(null);
@@ -52,11 +53,10 @@ const Blogs = ({ darkMode }) => {
                     {/* Blog Grid */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {blogsData.blogs.map((blog, index) => (
-                            <article
+                            <SpotlightCard
                                 key={blog.id}
                                 className="glass-card rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(255,107,53,0.3)]"
                                 onClick={() => handleBlogClick(blog)}
-                                style={{ animationDelay: `${index * 0.1}s` }}
                             >
                                 {/* Hero Image */}
                                 <div className="relative h-48 overflow-hidden">
@@ -118,7 +118,7 @@ const Blogs = ({ darkMode }) => {
                                         <ArrowRight className="w-4 h-4" />
                                     </div>
                                 </div>
-                            </article>
+                            </SpotlightCard>
                         ))}
                     </div>
                 </div>

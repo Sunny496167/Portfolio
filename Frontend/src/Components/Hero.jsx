@@ -1,167 +1,238 @@
 // components/Hero.js
-import { useEffect, useState } from "react";
-import { Download, Briefcase } from "lucide-react";
-import FadeContent from "../animations/FadeContent";
+import { useEffect, useState, useRef } from "react";
+import { Download, Briefcase, Github, Linkedin, Code2, MapPin, Sparkles } from "lucide-react";
 import resumeData from "../data/resumeData.json";
 import TextType from "../animations/TextType";
 
 const Hero = ({ darkMode }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    setMousePos({
+      x: ((e.clientX - rect.left) / rect.width - 0.5) * 20,
+      y: ((e.clientY - rect.top) / rect.height - 0.5) * 20,
+    });
+  };
+
   return (
     <section
+      ref={sectionRef}
       id="hero"
-      className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20 pb-16 relative overflow-hidden bg-gradient-to-br from-black via-[#1a0f0a] to-black"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-28 pb-16 relative overflow-hidden"
+      onMouseMove={handleMouseMove}
+      style={{ background: 'radial-gradient(ellipse at 30% 50%, #1a0f0a 0%, #000000 70%)' }}
     >
-      {/* Background Effects */}
+      {/* Animated Background Grid */}
+      <div className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,107,53,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,107,53,0.3) 1px, transparent 1px)`,
+          backgroundSize: '60px 60px',
+        }}
+      ></div>
+
+      {/* Dynamic Glow Orbs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Orbs */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-[500px] h-[500px] bg-orange-600/5 rounded-full blur-3xl float-animation"></div>
+        <div
+          className="absolute w-[600px] h-[600px] bg-orange-500/15 rounded-full blur-[120px] transition-transform duration-[3000ms] ease-out"
+          style={{ transform: `translate(${mousePos.x * 2}px, ${mousePos.y * 2}px)`, top: '10%', left: '5%' }}
+        ></div>
+        <div
+          className="absolute w-[400px] h-[400px] bg-orange-600/10 rounded-full blur-[100px] transition-transform duration-[3000ms] ease-out"
+          style={{ transform: `translate(${mousePos.x * -1.5}px, ${mousePos.y * -1.5}px)`, bottom: '10%', right: '10%' }}
+        ></div>
+        <div
+          className="absolute w-[300px] h-[300px] bg-amber-500/8 rounded-full blur-[80px] float-animation"
+          style={{ top: '50%', left: '50%' }}
+        ></div>
+      </div>
 
-        {/* Curved Lines */}
-        <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-orange-500/20 to-transparent"></div>
-        <div className="absolute top-1/2 right-0 w-1/2 h-px bg-gradient-to-l from-transparent via-orange-500/10 to-transparent"></div>
-
-        {/* Light Streaks */}
-        <div className="absolute top-0 right-1/4 w-1 h-64 bg-gradient-to-b from-orange-500/20 to-transparent blur-sm"></div>
-        <div className="absolute bottom-0 left-1/3 w-1 h-48 bg-gradient-to-t from-orange-500/20 to-transparent blur-sm"></div>
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-orange-500/40 rounded-full animate-pulse"
+            style={{
+              top: `${15 + i * 15}%`,
+              left: `${10 + i * 14}%`,
+              animationDelay: `${i * 0.7}s`,
+              animationDuration: `${2 + i * 0.5}s`,
+            }}
+          ></div>
+        ))}
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Side - Content */}
-          <div className={`text-left space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            {/* Headline */}
-            <div className="space-y-4">
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="block text-white mb-2">Hey, I'm</span>
-                <span className="block text-orange-gradient text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
-                  {resumeData.personalInfo.name}
-                </span>
-                <TextType text={["Software Developer", "Web Developer"]} />
-              </h3>
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
-              <p className="text-lg sm:text-xl text-[#e0e0e0] max-w-xl leading-relaxed mt-6">
-                {resumeData.summary}
-              </p>
+          {/* Left Side - Content (7 cols) */}
+          <div className={`lg:col-span-7 text-left space-y-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+            {/* Status Badge */}
+            <div className="flex items-center gap-3">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-sm">
+                <div className="relative">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full absolute inset-0 animate-ping"></div>
+                </div>
+                <span className="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Open to Work</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                <MapPin className="w-3 h-3 text-[#a0a0a0]" />
+                <span className="text-xs text-[#a0a0a0]">India</span>
+              </div>
             </div>
 
+            {/* Main Heading */}
+            <div className="space-y-3">
+              <p className="text-[#a0a0a0] text-lg font-medium tracking-wide">Hey there, I'm</p>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight">
+                <span className="block text-white">{resumeData.personalInfo.name.split(' ')[0]}</span>
+                <span className="block text-orange-gradient mt-1">{resumeData.personalInfo.name.split(' ').slice(1).join(' ')}</span>
+              </h1>
+            </div>
+
+            {/* Typing Role */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-[2px] bg-gradient-to-r from-[#ff6b35] to-transparent"></div>
+              <TextType
+                text={["Full Stack Developer", "Software Engineer", "MERN Stack Developer", "Problem Solver"]}
+                className="text-xl sm:text-2xl text-[#e0e0e0] font-light"
+                typingSpeed={60}
+                deletingSpeed={35}
+                pauseDuration={2500}
+                cursorCharacter="_"
+                cursorClassName="text-[#ff6b35] font-light"
+              />
+            </div>
+
+            {/* Bio */}
+            <p className="text-base sm:text-lg text-[#b0b0b0] max-w-lg leading-relaxed">
+              Building <span className="text-white font-medium">scalable web applications</span> with modern tech stacks. Passionate about clean code, performance, and turning ideas into <span className="text-[#ff8c42] font-medium">reliable digital solutions</span>.
+            </p>
+
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <a
                 href={resumeData.personalInfo.profiles.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-orange-gradient text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 min-h-[56px] group flex items-center justify-center gap-3"
+                className="group relative overflow-hidden px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 min-h-[56px] flex items-center justify-center gap-3 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white hover:shadow-[0_0_30px_rgba(255,107,53,0.4)]"
               >
-                <Briefcase size={22} className="group-hover:rotate-12 transition-transform" />
-                <span>Hire Me</span>
+                <span className="absolute inset-0 bg-gradient-to-r from-[#ff8c42] to-[#ff6b35] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                <Briefcase size={20} className="relative z-10 group-hover:rotate-12 transition-transform" />
+                <span className="relative z-10">Let's Work Together</span>
               </a>
               <a
                 href="/src/data/Sunny Kumar_Resume.pdf"
                 download="Sunny_Kumar_Resume.pdf"
-                className="border-2 border-[#ff6b35] text-[#ff6b35] px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:bg-[#ff6b35]/10 min-h-[56px] orange-glow-hover flex items-center justify-center gap-3"
+                className="group border border-[#ff6b35]/40 text-[#ff6b35] px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#ff6b35]/10 hover:border-[#ff6b35]/70 min-h-[56px] flex items-center justify-center gap-3"
               >
-                <Download size={22} />
-                <span>Download Resume</span>
+                <Download size={20} className="group-hover:translate-y-0.5 transition-transform" />
+                <span>Resume</span>
               </a>
+            </div>
+
+            {/* Social Links Row */}
+            <div className="flex items-center gap-5 pt-2">
+              <span className="text-xs text-[#666] uppercase tracking-widest font-semibold">Find me</span>
+              <div className="w-8 h-px bg-[#333]"></div>
+              {[
+                { icon: Github, href: resumeData.personalInfo.profiles.github, label: "GitHub" },
+                { icon: Linkedin, href: resumeData.personalInfo.profiles.linkedin, label: "LinkedIn" },
+                { icon: Code2, href: resumeData.personalInfo.profiles.leetcode, label: "LeetCode" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group p-2.5 rounded-xl hover:bg-orange-500/10 transition-all duration-300"
+                  title={label}
+                >
+                  <Icon className="w-5 h-5 text-[#666] group-hover:text-[#ff6b35] transition-colors duration-300" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Right Side - 3D Illustration with Floating Icons */}
-          <div className={`relative transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}>
-            {/* 3D Developer Illustration Container */}
-            <div className="relative w-full max-w-lg mx-auto">
+          {/* Right Side - Profile Image (5 cols) */}
+          <div className={`lg:col-span-5 flex justify-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+            <div className="relative group">
+              {/* Outer glow ring */}
+              <div className="absolute -inset-4 rounded-full bg-gradient-to-br from-[#ff6b35]/20 via-transparent to-[#d94f1f]/20 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-              {/* BACKEND ICONS (Behind the card - z-0) */}
-              {/* Node.js Icon - Bottom Left (Behind) */}
-              <div className="absolute bottom-4 left-4 z-20 glass-card p-4 rounded-2xl orange-glow-sm float-animation" style={{ animationDelay: '1s', animationDuration: '4s' }}>
-                <div className="w-16 h-16 bg-[#68a063] rounded-lg flex items-center justify-center shadow-lg">
-                  <svg className="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 1.85c-.27 0-.55.07-.78.2l-7.44 4.3c-.48.28-.78.8-.78 1.36v8.58c0 .56.3 1.08.78 1.36l1.95 1.12c.95.46 1.27.47 1.71.47 1.4 0 2.21-.85 2.21-2.33V8.44c0-.12-.1-.22-.22-.22H8.5c-.13 0-.23.1-.23.22v8.47c0 .66-.68 1.31-1.77.76L4.45 16.5a.26.26 0 0 1-.11-.21V7.71c0-.09.04-.17.11-.21l7.44-4.29c.06-.04.16-.04.22 0l7.44 4.29c.07.04.11.12.11.21v8.58c0 .08-.04.16-.11.21l-7.44 4.29c-.06.04-.16.04-.22 0L10 19.65c-.08-.03-.16-.04-.21-.01-.53.3-.63.36-1.12.51-.12.04-.31.11.07.32l2.48 1.47c.24.14.5.21.77.21s.53-.07.77-.21l7.44-4.29c.48-.28.78-.8.78-1.36V7.71c0-.56-.3-1.08-.78-1.36l-7.44-4.3c-.23-.13-.5-.2-.77-.2z" />
-                  </svg>
-                </div>
+              {/* Spinning border ring */}
+              <div className="absolute -inset-[3px] rounded-full opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: 'conic-gradient(from 0deg, #ff6b35, #d94f1f, transparent, transparent, #ff6b35)',
+                  animation: 'spin 8s linear infinite',
+                }}
+              ></div>
+
+              {/* Image container */}
+              <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[360px] md:h-[360px] rounded-full overflow-hidden border-2 border-black/50 z-10">
+                <img
+                  src="/ProfilePic.png"
+                  alt={resumeData.personalInfo.name}
+                  className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
+                />
+                {/* Subtle overlay for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
               </div>
 
-              {/* HTML Icon - Bottom Right (Behind) */}
-              <div className="absolute bottom-4 right-4 z-20 glass-card p-4 rounded-2xl orange-glow-sm float-animation" style={{ animationDelay: '1.5s', animationDuration: '3.2s' }}>
-                <div className="w-16 h-16 bg-[#e34f26] rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-xl">HTML</span>
+              {/* Floating tech badges around the circle */}
+              <div className="absolute -top-2 -right-2 z-20 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-sm border border-orange-500/30 text-xs font-semibold text-[#ff8c42] shadow-lg shadow-orange-500/10 animate-bounce" style={{ animationDuration: '3s' }}>
+                <div className="flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3" />
+                  React
                 </div>
               </div>
-
-              {/* MAIN CARD (Middle layer - z-10) */}
-              <div className="relative z-10 glass-card rounded-3xl p-8 aspect-square flex items-center justify-center">
-                <div className="w-full h-full flex flex-col items-center justify-center gap-6">
-                  {/* Head */}
-                  <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#ff8c42] to-[#ff6b35] flex items-center justify-center text-5xl font-bold text-white shadow-2xl orange-glow">
-                    {resumeData.personalInfo.name.split(' ').map(n => n[0]).join('')}
-                  </div>
-
-                  {/* Body with Laptop */}
-                  <div className="relative">
-                    <div className="w-48 h-32 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] rounded-lg border-2 border-orange-500/30 shadow-xl">
-                      {/* Laptop Screen */}
-                      <div className="w-full h-20 bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-t-lg p-3">
-                        <div className="w-full h-full bg-black/50 rounded-sm flex items-center justify-center">
-                          <div className="flex gap-1">
-                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
-                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Keyboard */}
-                      <div className="px-3 py-2">
-                        <div className="grid grid-cols-8 gap-1">
-                          {[...Array(16)].map((_, i) => (
-                            <div key={i} className="w-2 h-2 bg-gray-700 rounded-sm"></div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="text-sm text-orange-500 font-medium">Building Digital Experiences</p>
-                </div>
+              <div className="absolute -bottom-1 -left-3 z-20 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-sm border border-orange-500/30 text-xs font-semibold text-[#ff8c42] shadow-lg shadow-orange-500/10 animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '0.5s' }}>
+                Node.js
+              </div>
+              <div className="absolute top-1/2 -right-6 z-20 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-sm border border-orange-500/30 text-xs font-semibold text-[#ff8c42] shadow-lg shadow-orange-500/10 animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+                MongoDB
               </div>
 
-              {/* FRONTEND ICONS (In front of card - z-20) */}
-              {/* JavaScript Icon - Top Left (Front) */}
-              <div className="absolute top-4 left-4 z-20 glass-card p-4 rounded-2xl orange-glow-sm float-animation" style={{ animationDelay: '0s', animationDuration: '3s' }}>
-                <div className="w-16 h-16 bg-[#f7df1e] rounded-lg flex items-center justify-center shadow-lg">
-                  <span className="text-black font-bold text-2xl">JS</span>
+              {/* Experience badge */}
+              {/* <div className="absolute -bottom-4 right-4 z-20 px-4 py-2 rounded-2xl bg-black/90 backdrop-blur-md border border-orange-500/30 shadow-xl shadow-orange-500/10">
+                <div className="text-center">
+                  <span className="text-2xl font-black text-orange-gradient">2+</span>
+                  <p className="text-[10px] text-[#a0a0a0] uppercase tracking-wider font-semibold">Years Exp</p>
                 </div>
-              </div>
-
-              {/* React Icon - Top Right (Front) */}
-              <div className="absolute top-4 right-4 z-20 glass-card p-4 rounded-2xl orange-glow-sm float-animation" style={{ animationDelay: '0.5s', animationDuration: '3.5s' }}>
-                <div className="w-16 h-16 bg-[#61dafb] rounded-lg flex items-center justify-center shadow-lg">
-                  <svg className="w-10 h-10 text-[#282c34]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 10.11c1.03 0 1.87.84 1.87 1.89 0 1-.84 1.85-1.87 1.85S10.13 13 10.13 12c0-1.05.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9a22.7 22.7 0 0 1-2.4-.36c-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9c-.6 0-1.17 0-1.71.03-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47.54.03 1.11.03 1.71.03.6 0 1.17 0 1.71-.03.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68s-1.83 2.93-4.37 3.68c.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.38 1.95-1.46-.84-1.62-3.05-1-5.63-2.54-.75-4.37-1.99-4.37-3.68s1.83-2.93 4.37-3.68c-.62-2.58-.46-4.79 1-5.63 1.47-.84 3.46.12 5.38 1.95 1.92-1.83 3.91-2.79 5.37-1.95M17.08 12c.34.75.64 1.5.89 2.26 2.1-.63 3.28-1.53 3.28-2.26 0-.73-1.18-1.63-3.28-2.26-.25.76-.55 1.51-.89 2.26M6.92 12c-.34-.75-.64-1.5-.89-2.26-2.1.63-3.28 1.53-3.28 2.26 0 .73 1.18 1.63 3.28 2.26.25-.76.55-1.51.89-2.26m9 2.26l-.3.51c.31-.05.61-.1.88-.16-.07-.28-.18-.57-.29-.86l-.29.51m-2.89 4.04c1.59 1.5 2.97 2.08 3.59 1.7.64-.35.83-1.82.32-3.96-.77.16-1.58.28-2.4.36-.48.67-.99 1.31-1.51 1.9M8.08 9.74l.3-.51c-.31.05-.61.1-.88.16.07.28.18.57.29.86l.29-.51m2.89-4.04C9.38 4.2 8 3.62 7.37 4c-.63.35-.82 1.82-.31 3.96a22.7 22.7 0 0 1 2.4-.36c.48-.67.99-1.31 1.51-1.9z" />
-                  </svg>
-                </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-[#ff6b35]">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-[#ff6b35]/60 hover:text-[#ff6b35] transition-colors">
         <div className="flex flex-col items-center space-y-2">
-          <span className="text-sm">Scroll Down</span>
-          <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-current rounded-full mt-2 animate-ping"></div>
+          <span className="text-[10px] uppercase tracking-[3px] font-semibold">Scroll</span>
+          <div className="w-5 h-8 border border-current rounded-full flex justify-center">
+            <div className="w-0.5 h-2 bg-current rounded-full mt-1.5 animate-ping"></div>
           </div>
         </div>
       </div>
+
+      {/* Spinning animation keyframes */}
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </section>
   );
 };

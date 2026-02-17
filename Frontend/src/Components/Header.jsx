@@ -62,9 +62,7 @@ const Header = ({ darkMode, activeSection }) => {
             >
               <div className={`flex items-center gap-2 transition-all duration-300 ${isScrolled ? 'scale-90' : 'scale-100'
                 }`}>
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#ff8c42] to-[#ff6b35] flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:orange-glow transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
-                  {initials}
-                </div>
+                <img src="/Logo.png" alt="Logo" className="w-12 h-12 rounded-full object-contain group-hover:scale-110 transition-all duration-300" />
                 <span className="text-white font-bold text-xl hidden sm:block group-hover:text-orange-gradient transition-colors">
                   {resumeData.personalInfo.name.split(' ')[0]}
                 </span>
@@ -170,9 +168,7 @@ const Header = ({ darkMode, activeSection }) => {
             {/* Mobile Logo */}
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-2">
-                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#ff8c42] to-[#ff6b35] flex items-center justify-center text-white font-bold text-xl shadow-lg orange-glow">
-                  {initials}
-                </div>
+                <img src="/Logo.png" alt="Logo" className="w-12 h-12 rounded-full object-contain" />
                 <span className="text-white font-bold text-xl">
                   {resumeData.personalInfo.name.split(' ')[0]}
                 </span>

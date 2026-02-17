@@ -2,6 +2,7 @@
 import { Mail, MapPin, Github, Linkedin, Send, MessageSquare, Phone } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 import { useState } from "react";
 
@@ -98,7 +99,7 @@ const Contact = ({ darkMode }) => {
           >
             <div className="space-y-8">
               {/* Developer Illustration */}
-              <div className="glass-card rounded-3xl p-8 relative overflow-hidden border-orange-glow">
+              <SpotlightCard className="glass-card rounded-3xl p-8 relative overflow-hidden border-orange-glow">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
                 <div className="text-center">
@@ -116,7 +117,7 @@ const Contact = ({ darkMode }) => {
                   <h3 className="text-2xl font-bold text-white mb-2">Let's Talk!</h3>
                   <p className="text-[#a0a0a0]">I'm always open to discussing new projects and opportunities</p>
                 </div>
-              </div>
+              </SpotlightCard>
 
               {/* Contact Information */}
               <div className="space-y-4">
@@ -132,22 +133,21 @@ const Contact = ({ darkMode }) => {
                     delay={0.3 + (index * 0.1)}
                   >
                     {info.href ? (
-                      <a
-                        href={info.href}
-                        className="glass-card rounded-xl p-4 flex items-center gap-4 group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-1"
-                      >
-                        <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${info.color} bg-opacity-20 flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                          <info.icon className="w-6 h-6 text-[#ff6b35]" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-[#a0a0a0]">{info.label}</p>
-                          <p className="text-white font-medium group-hover:text-orange-gradient transition-colors">
-                            {info.value}
-                          </p>
-                        </div>
-                      </a>
+                      <SpotlightCard className="glass-card rounded-xl p-4 flex items-center gap-4 group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-1">
+                        <a href={info.href} className="flex items-center gap-4 w-full">
+                          <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${info.color} bg-opacity-20 flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                            <info.icon className="w-6 h-6 text-[#ff6b35]" />
+                          </div>
+                          <div className="flex-1">
+                            <p className="text-sm text-[#a0a0a0]">{info.label}</p>
+                            <p className="text-white font-medium group-hover:text-orange-gradient transition-colors">
+                              {info.value}
+                            </p>
+                          </div>
+                        </a>
+                      </SpotlightCard>
                     ) : (
-                      <div className="glass-card rounded-xl p-4 flex items-center gap-4 group hover:border-orange-glow transition-all duration-300">
+                      <SpotlightCard className="glass-card rounded-xl p-4 flex items-center gap-4 group hover:border-orange-glow transition-all duration-300">
                         <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${info.color} bg-opacity-20 flex items-center justify-center`}>
                           <info.icon className="w-6 h-6 text-[#ff6b35]" />
                         </div>
@@ -155,14 +155,14 @@ const Contact = ({ darkMode }) => {
                           <p className="text-sm text-[#a0a0a0]">{info.label}</p>
                           <p className="text-white font-medium">{info.value}</p>
                         </div>
-                      </div>
+                      </SpotlightCard>
                     )}
                   </AnimatedContent>
                 ))}
               </div>
 
               {/* Social Links */}
-              <div className="glass-card rounded-xl p-6">
+              <SpotlightCard className="glass-card rounded-xl p-6">
                 <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
                   <MessageSquare className="w-5 h-5 text-[#ff6b35]" />
                   Connect on Social Media
@@ -181,7 +181,7 @@ const Contact = ({ darkMode }) => {
                     </a>
                   ))}
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
           </AnimatedContent>
 
@@ -196,7 +196,7 @@ const Contact = ({ darkMode }) => {
             animateOpacity
             delay={0.4}
           >
-            <div className="glass-card rounded-3xl p-8 relative overflow-hidden border-orange-glow">
+            <SpotlightCard className="glass-card rounded-3xl p-8 relative overflow-hidden border-orange-glow">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -260,7 +260,7 @@ const Contact = ({ darkMode }) => {
                   <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </button>
               </form>
-            </div>
+            </SpotlightCard>
           </AnimatedContent>
         </div>
       </div>

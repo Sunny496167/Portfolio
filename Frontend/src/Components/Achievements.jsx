@@ -3,6 +3,7 @@ import { Trophy, Star, Users, Award, TrendingUp, Target } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
 import AnimatedCounter from "../animations/AnimatedCounter";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Achievements = ({ darkMode }) => {
@@ -81,7 +82,7 @@ const Achievements = ({ darkMode }) => {
               delay={0.2 + (index * 0.1)}
               threshold={0.2}
             >
-              <div className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 text-center">
+              <SpotlightCard className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 text-center">
                 {/* Top Accent */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
@@ -114,7 +115,7 @@ const Achievements = ({ darkMode }) => {
 
                 {/* Bottom Glow */}
                 <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-gradient-to-br from-orange-500/0 to-orange-500/20 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
+              </SpotlightCard>
             </AnimatedContent>
           ))}
         </div>
@@ -151,7 +152,7 @@ const Achievements = ({ darkMode }) => {
                     animateOpacity
                     delay={0.7 + (index * 0.15)}
                   >
-                    <div className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-1">
+                    <SpotlightCard className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300">
                       {/* Side Accent */}
                       <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-[#ff6b35] to-[#d94f1f]"></div>
 
@@ -186,7 +187,7 @@ const Achievements = ({ darkMode }) => {
                           </ul>
                         )}
                       </div>
-                    </div>
+                    </SpotlightCard>
                   </AnimatedContent>
                 ))}
               </div>
@@ -205,7 +206,7 @@ const Achievements = ({ darkMode }) => {
           delay={0.9}
         >
           <div className="mt-16">
-            <div className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden border-orange-glow text-center">
+            <SpotlightCard className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden border-orange-glow text-center">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] via-yellow-500 to-[#ff6b35]"></div>
 
               <div className="relative z-10">
@@ -224,7 +225,7 @@ const Achievements = ({ darkMode }) => {
 
               {/* Background Glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent"></div>
-            </div>
+            </SpotlightCard>
           </div>
         </AnimatedContent>
       </div>

@@ -1,6 +1,6 @@
 // Blog Detail Modal Component
 import { useEffect } from "react";
-import { X, Calendar, Clock, User, ArrowLeft } from "lucide-react";
+import { X, Calendar, Clock, User, ArrowLeft, ExternalLink, Github, Lock } from "lucide-react";
 
 const BlogDetail = ({ blog, isOpen, onClose }) => {
     // Prevent scroll when modal is open
@@ -181,6 +181,40 @@ const BlogDetail = ({ blog, isOpen, onClose }) => {
 
                                 {/* Footer */}
                                 <div className="mt-16 pt-8 border-t border-orange-500/20">
+                                    {/* Links */}
+                                    {(blog.hostedLink || blog.githubLink) && (
+                                        <div className="flex flex-wrap gap-3 mb-8">
+                                            {blog.hostedLink && (
+                                                <a
+                                                    href={blog.hostedLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white font-semibold hover:from-[#ff8c42] hover:to-[#ff6b35] transition-all text-sm"
+                                                >
+                                                    <ExternalLink className="w-4 h-4" />
+                                                    Visit Live Site
+                                                </a>
+                                            )}
+                                            {blog.githubLink && (
+                                                <a
+                                                    href={blog.githubLink}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-orange-500/30 text-[#ff8c42] hover:bg-orange-500/10 transition-all text-sm font-semibold"
+                                                >
+                                                    <Github className="w-4 h-4" />
+                                                    GitHub Repository
+                                                    {blog.isPrivateRepo && (
+                                                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-orange-500/15 text-[#ff6b35] text-xs font-medium ml-1">
+                                                            <Lock className="w-3 h-3" />
+                                                            Private
+                                                        </span>
+                                                    )}
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
+
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <p className="text-sm text-[#a0a0a0] mb-2">Written by</p>

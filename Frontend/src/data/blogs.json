@@ -201,6 +201,266 @@
                     "text": "Want to see the code and implementation details? Check out the **[GitHub repository](https://github.com/Sunny496167/skills-copilot-codespaces-vscode)** for this analysis."
                 }
             ]
+        },
+        {
+            "id": 2,
+            "title": "The Journey of Building Lylah Perfumes - A Freelance Full-Stack E-Commerce Platform",
+            "slug": "building-lylah-perfumes-fullstack-ecommerce",
+            "excerpt": "Some projects are practice runs. Others teach you what you're actually made of. Lylah Perfumes was a full-stack e-commerce platform built under real freelance pressure — here's the honest story of what I built, what broke, and what I learned.",
+            "author": "Sunny Kumar",
+            "publishDate": "2025-10-20",
+            "readTime": "12 min",
+            "tags": [
+                "Full-Stack",
+                "E-Commerce",
+                "React",
+                "Node.js",
+                "Freelance"
+            ],
+            "category": "Full-Stack Development",
+            "heroImage": "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1200&h=600&fit=crop",
+            "hostedLink": "https://lylahperfumes.com",
+            "githubLink": "https://github.com/Sunny496167/LylahPerfumes",
+            "isPrivateRepo": true,
+            "content": [
+                {
+                    "type": "paragraph",
+                    "text": "Some projects are practice runs. Others teach you what you're actually made of. **Lylah Perfumes** was the latter — a full-stack e-commerce platform built under real freelance pressure, for a real client, with a real deadline. This isn't a tutorial recap. It's the honest story of what I built, what broke, what I fixed, and what I walked away knowing that I didn't know before."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "If you're a developer building your first serious production project, or a freelancer navigating your first complex client engagement, I hope something here saves you hours of debugging or helps you make a better architectural call than I did on my first try."
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "What Is Lylah Perfumes?"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Lylah Perfumes is a **premium fragrance e-commerce platform** — not a simple product listing site, but a complete digital commerce system. Customers can browse a curated catalogue, create accounts, manage wishlists, apply coupon codes, pay securely, and track their orders in real time. On the admin side, there's a full-featured dashboard for managing products, orders, users, coupons, and customer inquiries."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "The Tech Stack"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "**Frontend:** React 18 with Vite, Tailwind CSS, Framer Motion for animations, Context API for state management",
+                        "**Backend:** Node.js with Express, JWT authentication, Google OAuth 2.0, rate limiting, Helmet.js for security headers",
+                        "**Database & Caching:** MongoDB with Mongoose, Redis for caching and session management",
+                        "**Third-Party Services:** Cloudinary for image management, Cashfree for payments, Nodemailer with Gmail SMTP for transactional emails",
+                        "**Deployment:** Frontend on Vercel, backend containerized and deployed on Google Cloud Run, MongoDB Atlas, Redis Cloud"
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Each of these was a deliberate choice — and some of them bit me in ways I didn't expect. Let me walk you through the real challenges."
+                },
+                {
+                    "type": "image",
+                    "src": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=600&fit=crop",
+                    "alt": "E-commerce platform architecture",
+                    "caption": "Building a production-grade e-commerce platform from the ground up"
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "The Challenges Nobody Talks About"
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "1. Guest Users and the Cart Merge Problem"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Standard UX says users should be able to add products to a cart and wishlist before they log in. That's the easy part. The hard part is: **what happens when they do log in?**"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "All the data they built up as a guest — cart items, wishlist products — has to merge cleanly with their authenticated account. If they already had a saved cart from a previous session, you can't just overwrite it. You need to reconcile the two intelligently."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "My approach was to assign every guest session a temporary token stored in `localStorage`, and track their cart and wishlist against that token on the backend. On login or registration, I'd fetch both the guest state and the authenticated user's existing state and merge them — checking for duplicate product IDs and combining quantities where appropriate."
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Same product added in both guest and authenticated sessions",
+                        "Items that had gone out of stock between sessions",
+                        "Wishlist items that were already in the cart",
+                        "Price changes between when the item was added and when the merge occurs"
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "text": "**Key Takeaway:** Think through data ownership from the start. Guest state isn't throwaway — treat it as a first-class user record that eventually gets promoted or merged."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "2. Authentication Breaking on HTTP — And Why It Happened Twice"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Google OAuth worked perfectly in local development. In production on Render, it broke silently. The login flow would initiate, the Google consent screen would appear, and then... nothing. No error. Just a silent redirect back to the homepage, not logged in."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "The root cause was a combination of issues. Render's infrastructure serves requests internally over HTTP, and Express wasn't configured to trust the proxy correctly. This meant `req.secure` returned `false`, so cookies with the `Secure` flag weren't being set. The OAuth state parameter also wasn't surviving the redirect because of how the session was being stored."
+                },
+                {
+                    "type": "code",
+                    "language": "javascript",
+                    "code": "// The three-part fix for OAuth in production:\n\n// 1. Trust the proxy\napp.set('trust proxy', 1);\n\n// 2. Configure cookies correctly\nconst cookieOptions = {\n  secure: process.env.NODE_ENV === 'production',\n  sameSite: 'none',\n  httpOnly: true\n};\n\n// 3. Ensure Google Console redirect URIs match EXACTLY\n// Including trailing slashes, HTTP vs HTTPS, and exact domain"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "**Key Takeaway:** Never assume your local auth setup will behave identically in production. HTTP vs HTTPS, proxy layers, and cookie flags interact in ways that only surface when you deploy. Test auth in a staging environment that mirrors production as closely as possible."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "3. Safari & Ula Refused to Work — Cart, Wishlist, and Auth All Broke"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Chrome worked. Firefox worked. Then I opened Safari — broken. Opened Ula — also broken. And it wasn't just the site failing to load. **Three separate features collapsed at once:** add to cart, wishlist, and authentication."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "The root cause was browser-level privacy protections. Safari's Intelligent Tracking Prevention (ITP) blocks third-party cookies by default. My backend was on a different domain than the frontend, so every cookie I was setting was being silently classified as third-party and blocked. The browser received the responses but refused to store or send the cookies back."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Fixing it required changes at multiple levels: moving away from cookies for cross-origin state and shifting to storing the JWT and guest session token in `localStorage`, sent via `Authorization` headers on every request. For remaining cookies, I set `SameSite=None; Secure` explicitly and ensured both frontend and backend were served over HTTPS."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "**Key Takeaway:** Test in Safari and privacy-focused browsers from the very beginning of development. They have meaningfully stricter cookie and cross-origin policies than Chrome, and the failures are completely silent."
+                },
+                {
+                    "type": "image",
+                    "src": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=1200&h=600&fit=crop",
+                    "alt": "Debugging cross-browser issues",
+                    "caption": "Cross-browser compatibility testing is non-negotiable for production apps"
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "4. Deploying to Google Cloud Run"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Cloud Run runs stateless containers — you write a Dockerfile, push the image to Google Artifact Registry, and Cloud Run manages scaling. The appeal is real: it **scales to zero** when idle, and scales up automatically under load."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "What I didn't anticipate was how much the containerization process exposed about my app's assumptions. Environment variables that worked fine as a `.env` file needed to be injected through Cloud Run's Secret Manager. The health check endpoint had to be explicitly built — Cloud Run calls a specific path to determine container health, and anything other than a 200 marks the instance as unhealthy."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Cold starts were another issue. When the container scales down to zero and a new request comes in, there's a noticeable startup delay. I added a keep-alive ping on the frontend to prevent the container from going fully cold during expected traffic hours."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "**Key Takeaway:** Containerizing your backend is worth it — it makes your app portable and the deployment process repeatable. But it forces you to confront assumptions about file system access, environment config, and startup behavior."
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "Features I'm Proud Of"
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "The Coupon System"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "On the surface, a coupon code input is simple. Underneath, it's a surprisingly complex engine. Lylah's coupon system supports **percentage-based and fixed-amount discounts**, minimum order value requirements, per-user usage limits, total usage caps across all users, and expiration timestamps. The admin dashboard shows real-time usage counts and can bulk-generate coupon batches for campaigns."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "The validation logic runs entirely on the backend — never trust the client to validate discounts. Every checkout submission goes through a multi-step coupon verification: does this code exist, is it active, has it expired, has the user hit their personal limit, has the total redemption cap been reached, and does the order value meet the minimum threshold."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Email Notification Pipeline"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "The entire order lifecycle is communicated by email — order confirmed, order shipped, order delivered. Each triggers a template-based email to the customer. Admins receive notifications for new contact form submissions and inquiries. Using Nodemailer with Gmail SMTP, I built a reusable email service that handles failures gracefully: if an email send fails, it logs the error and continues — a failed notification should never block an order."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "The Admin Dashboard"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "This isn't a demo dashboard with hardcoded analytics. It's a **working operations tool** the client uses daily — sales analytics with revenue breakdowns by period, order management with status updates, user activity logs, coupon performance tracking, and a contact inbox with status management (pending, in progress, resolved)."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Image Management with Cloudinary"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Every product image is uploaded directly to Cloudinary via a signed upload preset. The backend never stores raw image files — only the Cloudinary URLs. Images are served from a CDN, automatically optimized for format and quality, and transformable on-the-fly for different sizes (thumbnails vs product detail pages). This keeps the backend stateless and image serving fast."
+                },
+                {
+                    "type": "image",
+                    "src": "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=600&fit=crop",
+                    "alt": "E-commerce dashboard analytics",
+                    "caption": "Real-time admin dashboard powering daily business operations"
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "Lessons Learned"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "**State management at scale:** When you have cart, wishlist, auth, and checkout state all in the same application, Context API starts showing its limits. I learned when to split contexts to avoid unnecessary re-renders and when a single consolidated context is cleaner.",
+                        "**Payment integration is about edge cases:** Cashfree integration is straightforward at the happy path. The real work is handling: payment initiated but user closes the tab, payment captured but webhook delayed, order placed but payment status pending. Idempotent webhook handlers are not optional.",
+                        "**Production security is a checklist, not an afterthought:** Rate limiting, bcrypt for password hashing, input validation with Validator.js, Helmet.js for security headers, CORS configured to specific origins — these aren't impressive features, they're baseline requirements.",
+                        "**Freelance time management is a different skill:** Technical ability gets you to a working prototype. The professional skill is scoping features accurately, communicating progress honestly, and delivering on time even when something breaks two days before the deadline."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "Final Thoughts"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Lylah Perfumes is live at **[lylahperfumes.com](https://lylahperfumes.com)**. Real people shop on it. Real orders are fulfilled. The client runs their business on it every day."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "That's what made this project matter more than any personal project I've built — not the tech stack, not the architecture decisions, but the fact that it works for someone else's livelihood. That accountability changed how I approached every decision, every edge case, every deployment."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "If you're about to build something similar — a full-stack e-commerce platform, a freelance project with real stakes, your first production deployment — my advice is simple: **test in every browser early, design your auth flow for production from day one, and treat your deadline as fixed even when the scope tries to grow.** The technical problems are solvable. The discipline is what separates projects that ship from ones that don't."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "🔗 **Live Site:** [lylahperfumes.com](https://lylahperfumes.com) · **GitHub:** [Private Repository](https://github.com/Sunny496167/LylahPerfumes)"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "*Built with React, Node.js, MongoDB, Redis, Google Cloud Run, and a lot of late nights. — Sunny Kumar, Full-Stack Developer*"
+                }
+            ]
         }
     ]
 }

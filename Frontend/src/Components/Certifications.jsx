@@ -2,6 +2,7 @@
 import { Award, BadgeCheck, ShieldCheck, ExternalLink } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Certifications = ({ darkMode }) => {
@@ -43,7 +44,7 @@ const Certifications = ({ darkMode }) => {
               delay={0.2 + (index * 0.15)}
               threshold={0.2}
             >
-              <div className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2 cursor-pointer">
+              <SpotlightCard className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 cursor-pointer">
                 {/* Subtle Top Accent */}
                 <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
@@ -111,7 +112,7 @@ const Certifications = ({ darkMode }) => {
 
                 {/* Subtle Corner Glow */}
                 <div className="absolute -bottom-1 -right-1 w-20 h-20 bg-gradient-to-br from-orange-500/0 to-orange-500/10 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
+              </SpotlightCard>
             </AnimatedContent>
           ))}
         </div>

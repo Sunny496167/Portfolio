@@ -2,6 +2,7 @@
 import { Users, Rocket, Handshake, ExternalLink, Github, CheckCircle2, TrendingUp } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Freelance = ({ darkMode }) => {
@@ -40,7 +41,7 @@ const Freelance = ({ darkMode }) => {
                     delay={0.2}
                 >
                     <div className="max-w-4xl mx-auto mb-16">
-                        <div className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden border-orange-glow">
+                        <SpotlightCard className="glass-card rounded-3xl p-8 md:p-12 relative overflow-hidden border-orange-glow">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
                             <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -83,7 +84,7 @@ const Freelance = ({ darkMode }) => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </SpotlightCard>
                     </div>
                 </AnimatedContent>
 
@@ -102,7 +103,7 @@ const Freelance = ({ darkMode }) => {
                             delay={0.4 + (index * 0.15)}
                             threshold={0.2}
                         >
-                            <div className="glass-card rounded-2xl p-8 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 cursor-pointer h-full flex flex-col">
+                            <SpotlightCard className="glass-card rounded-2xl p-8 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 cursor-pointer h-full flex flex-col">
                                 {/* Top Orange Accent */}
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
@@ -207,7 +208,7 @@ const Freelance = ({ darkMode }) => {
 
                                 {/* Bottom Corner Accent */}
                                 <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br from-orange-500/0 to-orange-500/20 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            </div>
+                            </SpotlightCard>
                         </AnimatedContent>
                     ))}
                 </div>

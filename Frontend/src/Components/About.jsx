@@ -2,6 +2,8 @@
 import { Code, Lightbulb, Layers, Target } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
+import SpotlightCard from "../animations/SpotlightCard";
+import ProfileCard from "../animations/ProfileCard";
 import resumeData from "../data/resumeData.json";
 
 const About = ({ darkMode }) => {
@@ -43,7 +45,7 @@ const About = ({ darkMode }) => {
         </FadeContent>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-          {/* Left Side - Developer Avatar Illustration */}
+          {/* Left Side - Profile Card */}
           <AnimatedContent
             distance={60}
             direction="horizontal"
@@ -53,58 +55,7 @@ const About = ({ darkMode }) => {
             animateOpacity
             delay={0.2}
           >
-            <div className="relative">
-              {/* Main Avatar Card */}
-              <div className="glass-card rounded-3xl p-8 lg:p-12 relative overflow-hidden">
-                {/* Orange accent line */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
-
-                {/* Developer Illustration */}
-                <div className="flex flex-col items-center justify-center space-y-6">
-                  {/* Avatar with thinking pose */}
-                  <div className="relative">
-                    <div className="w-48 h-48 rounded-full bg-gradient-to-br from-[#ff8c42] to-[#ff6b35] flex items-center justify-center text-6xl font-bold text-white shadow-2xl orange-glow">
-                      {resumeData.personalInfo.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    {/* Thinking bubbles */}
-                    <div className="absolute -top-4 -right-4 w-8 h-8 bg-orange-500/30 rounded-full animate-pulse"></div>
-                    <div className="absolute -top-8 -right-2 w-4 h-4 bg-orange-500/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                  </div>
-
-                  {/* Laptop/Coding illustration */}
-                  <div className="relative">
-                    <div className="w-64 h-40 bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] rounded-xl border-2 border-orange-500/30 shadow-2xl">
-                      {/* Screen with code */}
-                      <div className="w-full h-28 bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-t-lg p-4">
-                        <div className="w-full h-full bg-black/60 rounded-sm p-2 font-mono text-xs">
-                          <div className="text-orange-400">&lt;Developer /&gt;</div>
-                          <div className="text-green-400 ml-2">passion: true</div>
-                          <div className="text-blue-400 ml-2">skills: ++</div>
-                          <div className="flex gap-1 mt-2">
-                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
-                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                            <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                      {/* Keyboard */}
-                      <div className="px-4 py-2">
-                        <div className="grid grid-cols-12 gap-1">
-                          {[...Array(24)].map((_, i) => (
-                            <div key={i} className="w-2 h-2 bg-gray-700 rounded-sm"></div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="text-center">
-                    <p className="text-orange-500 font-semibold text-lg">Coding with Passion</p>
-                    <p className="text-[#a0a0a0] text-sm">Building the future, one line at a time</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ProfileCard />
           </AnimatedContent>
 
           {/* Right Side - Professional Story */}
@@ -120,7 +71,7 @@ const About = ({ darkMode }) => {
           >
             <div className="space-y-6">
               {/* Main Story Card */}
-              <div className="glass-card rounded-2xl p-8 relative overflow-hidden border-orange-glow">
+              <SpotlightCard className="glass-card rounded-2xl p-8 relative overflow-hidden border-orange-glow">
                 <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#ff6b35] to-[#d94f1f]"></div>
 
                 <div className="space-y-4">
@@ -129,10 +80,10 @@ const About = ({ darkMode }) => {
                     {resumeData.summary}
                   </p>
                 </div>
-              </div>
+              </SpotlightCard>
 
               {/* Passion Statement */}
-              <div className="glass-card rounded-2xl p-6 relative overflow-hidden">
+              <SpotlightCard className="glass-card rounded-2xl p-6 relative overflow-hidden">
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-orange-500/20 rounded-xl">
                     <Target className="w-6 h-6 text-[#ff6b35]" />
@@ -144,10 +95,10 @@ const About = ({ darkMode }) => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
 
               {/* Career Focus */}
-              <div className="glass-card rounded-2xl p-6 relative overflow-hidden">
+              <SpotlightCard className="glass-card rounded-2xl p-6 relative overflow-hidden">
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-orange-500/20 rounded-xl">
                     <Code className="w-6 h-6 text-[#ff6b35]" />
@@ -159,7 +110,7 @@ const About = ({ darkMode }) => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </div>
           </AnimatedContent>
         </div>
@@ -176,9 +127,9 @@ const About = ({ darkMode }) => {
         >
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div
+              <SpotlightCard
                 key={index}
-                className="glass-card rounded-2xl p-8 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2"
+                className="glass-card rounded-2xl p-8 relative overflow-hidden group hover:border-orange-glow transition-all duration-300"
               >
                 {/* Orange accent on hover */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
@@ -199,7 +150,7 @@ const About = ({ darkMode }) => {
                     {feature.description}
                   </p>
                 </div>
-              </div>
+              </SpotlightCard>
             ))}
           </div>
         </AnimatedContent>

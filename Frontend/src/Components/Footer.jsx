@@ -1,5 +1,6 @@
 // Footer Component
 import { Mail, MapPin, Phone, Github, Linkedin, Twitter, Heart, Code2, Home, FolderGit2, User } from "lucide-react";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Footer = ({ darkMode }) => {
@@ -86,12 +87,10 @@ const Footer = ({ darkMode }) => {
 
           {/* Brand Section */}
           <div className="lg:col-span-1">
-            <div className="glass-card rounded-2xl p-6 h-full">
+            <SpotlightCard className="glass-card rounded-2xl p-6 h-full">
               {/* Logo */}
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#ff8c42] to-[#ff6b35] flex items-center justify-center text-white font-bold text-xl shadow-lg orange-glow">
-                  {initials}
-                </div>
+                <img src="/Logo.png" alt="Logo" className="w-12 h-12 rounded-xl object-contain" />
                 <div>
                   <h3 className="text-white font-bold text-lg">
                     {resumeData.personalInfo.name.split(' ')[0]}
@@ -110,12 +109,12 @@ const Footer = ({ darkMode }) => {
                 <Code2 className="w-4 h-4" />
                 <span className="text-xs font-semibold">Full Stack Developer</span>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
 
           {/* Quick Links */}
           <div className="lg:col-span-1">
-            <div className="glass-card rounded-2xl p-6 h-full">
+            <SpotlightCard className="glass-card rounded-2xl p-6 h-full">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
                 <span className="w-1 h-6 bg-gradient-to-b from-[#ff6b35] to-[#d94f1f] rounded-full"></span>
                 Quick Links
@@ -141,12 +140,12 @@ const Footer = ({ darkMode }) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </SpotlightCard>
           </div>
 
           {/* Contact Info */}
           <div className="lg:col-span-1">
-            <div className="glass-card rounded-2xl p-6 h-full">
+            <SpotlightCard className="glass-card rounded-2xl p-6 h-full">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
                 <span className="w-1 h-6 bg-gradient-to-b from-[#ff6b35] to-[#d94f1f] rounded-full"></span>
                 Contact Info
@@ -179,12 +178,12 @@ const Footer = ({ darkMode }) => {
                   </li>
                 ))}
               </ul>
-            </div>
+            </SpotlightCard>
           </div>
 
           {/* Social Media */}
           <div className="lg:col-span-1">
-            <div className="glass-card rounded-2xl p-6 h-full">
+            <SpotlightCard className="glass-card rounded-2xl p-6 h-full">
               <h4 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
                 <span className="w-1 h-6 bg-gradient-to-b from-[#ff6b35] to-[#d94f1f] rounded-full"></span>
                 Follow Me
@@ -213,12 +212,12 @@ const Footer = ({ darkMode }) => {
                   Open for collaborations and opportunities
                 </p>
               </div>
-            </div>
+            </SpotlightCard>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="glass-card rounded-2xl p-6 border-t border-orange-500/20">
+        <SpotlightCard className="glass-card rounded-2xl p-6 border-t border-orange-500/20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <p className="text-[#a0a0a0] text-sm text-center md:text-left">
@@ -243,7 +242,7 @@ const Footer = ({ darkMode }) => {
               </span>
             </div>
           </div>
-        </div>
+        </SpotlightCard>
       </div>
 
       {/* Bottom Orange Accent Line */}

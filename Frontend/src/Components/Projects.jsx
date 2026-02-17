@@ -1,11 +1,26 @@
 // Projects Section Component
-import { Code2, Database, Zap, ExternalLink, Github, FolderGit2 } from "lucide-react";
+import { useState } from "react";
+import { Code2, ExternalLink, Github, Globe } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Projects = ({ darkMode }) => {
-  const projects = resumeData.projects || [];
+  const allProjects = resumeData.projects || [];
+
+  // Only show deployed projects (ones with liveDemo URL)
+  const deployedProjects = allProjects.filter((p) => p.liveDemo);
+
+  // Non-deployed projects (commented out / kept for reference)
+  // const nonDeployedProjects = allProjects.filter((p) => !p.liveDemo);
+  // Non-deployed: Backend, ExcuseGenerator, AIChoiceHelper, classRoomManagement
+
+  const [loadedIframes, setLoadedIframes] = useState({});
+
+  const handleIframeLoad = (id) => {
+    setLoadedIframes((prev) => ({ ...prev, [id]: true }));
+  };
 
   return (
     <section id="projects" className="py-20 px-4 bg-gradient-to-b from-black via-[#1a0f0a] to-black relative overflow-hidden">
@@ -29,9 +44,9 @@ const Projects = ({ darkMode }) => {
           </div>
         </FadeContent>
 
-        {/* Projects Grid */}
+        {/* Deployed Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {deployedProjects.map((project, index) => (
             <AnimatedContent
               key={project.id}
               distance={60}
@@ -43,37 +58,55 @@ const Projects = ({ darkMode }) => {
               delay={0.2 + (index * 0.1)}
               threshold={0.2}
             >
-              <div className="glass-card rounded-2xl overflow-hidden relative group hover:border-orange-glow transition-all duration-500 transform hover:-translate-y-4 hover:scale-105 cursor-pointer h-full flex flex-col perspective-1000">
+              <SpotlightCard className="glass-card rounded-2xl overflow-hidden relative group hover:border-orange-glow transition-all duration-500 cursor-pointer h-full flex flex-col">
                 {/* Top Orange Accent */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] z-10"></div>
 
-                {/* Preview Thumbnail with Dark Overlay */}
+                {/* Live Site Iframe Preview */}
                 <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#1a0f0a] to-black">
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent group-hover:from-orange-500/20 transition-all duration-500"></div>
-
-                  {/* Project Icon/Logo */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-500/30 to-orange-600/20 flex items-center justify-center backdrop-blur-sm border border-orange-500/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                      <FolderGit2 className="w-10 h-10 text-[#ff6b35]" />
+                  {/* Loading skeleton */}
+                  {!loadedIframes[project.id] && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
+                      <Globe className="w-8 h-8 text-[#ff6b35] animate-pulse" />
+                      <span className="text-xs text-[#a0a0a0]">Loading preview...</span>
                     </div>
+                  )}
+
+                  {/* Iframe - scaled down website preview */}
+                  <iframe
+                    src={project.liveDemo}
+                    title={`${project.name} preview`}
+                    className="absolute top-0 left-0 border-0 pointer-events-none"
+                    style={{
+                      width: '1280px',
+                      height: '720px',
+                      transform: 'scale(0.28)',
+                      transformOrigin: 'top left',
+                    }}
+                    loading="lazy"
+                    sandbox="allow-scripts allow-same-origin"
+                    onLoad={() => handleIframeLoad(project.id)}
+                  />
+
+                  {/* Hover overlay with "Visit" prompt */}
+                  <a
+                    href={project.liveDemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute inset-0 z-20 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-center justify-center"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white text-sm font-semibold">
+                      <ExternalLink className="w-4 h-4" />
+                      Visit Site
+                    </div>
+                  </a>
+
+                  {/* Live badge */}
+                  <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-emerald-500/30">
+                    <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <span className="text-[10px] font-semibold text-emerald-400 uppercase tracking-wider">Live</span>
                   </div>
-
-                  {/* Tech Icons Floating */}
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <div className="p-2 bg-black/50 backdrop-blur-sm rounded-lg border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                      <Code2 className="w-4 h-4 text-[#ff6b35]" />
-                    </div>
-                    <div className="p-2 bg-black/50 backdrop-blur-sm rounded-lg border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-200">
-                      <Database className="w-4 h-4 text-[#ff6b35]" />
-                    </div>
-                    <div className="p-2 bg-black/50 backdrop-blur-sm rounded-lg border border-orange-500/30 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-300">
-                      <Zap className="w-4 h-4 text-[#ff6b35]" />
-                    </div>
-                  </div>
-
-                  {/* Dark Overlay on Hover */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
 
                 {/* Project Content */}
@@ -84,7 +117,7 @@ const Projects = ({ darkMode }) => {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-[#a0a0a0] text-sm line-clamp-3 mb-4 flex-1">
+                  <p className="text-[#a0a0a0] text-sm line-clamp-2 mb-4 flex-1">
                     {Array.isArray(project.description) ? project.description.join(' ') : project.description}
                   </p>
 
@@ -92,7 +125,7 @@ const Projects = ({ darkMode }) => {
                   {project.technologies && project.technologies.length > 0 && (
                     <div className="mb-4">
                       <div className="flex flex-wrap gap-2">
-                        {project.technologies.slice(0, 3).map((tech, i) => (
+                        {project.technologies.slice(0, 4).map((tech, i) => (
                           <span
                             key={i}
                             className="px-2 py-1 text-xs rounded-full bg-orange-500/10 text-[#ff8c42] border border-orange-500/20"
@@ -100,50 +133,42 @@ const Projects = ({ darkMode }) => {
                             {tech}
                           </span>
                         ))}
-                        {project.technologies.length > 3 && (
+                        {project.technologies.length > 4 && (
                           <span className="px-2 py-1 text-xs rounded-full bg-orange-500/10 text-[#ff8c42] border border-orange-500/20">
-                            +{project.technologies.length - 3}
+                            +{project.technologies.length - 4}
                           </span>
                         )}
                       </div>
                     </div>
                   )}
 
-                  {/* Action Buttons with Glow Effects */}
+                  {/* Action Buttons */}
                   <div className="flex gap-3 mt-auto">
                     {project.repoUrl && (
                       <a
                         href={project.repoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-orange-500/20 text-[#ff6b35] border border-orange-500/30 hover:bg-orange-500/30 hover:border-orange-500/50 hover:orange-glow transition-all text-sm font-semibold transform hover:scale-105"
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-orange-500/20 text-[#ff6b35] border border-orange-500/30 hover:bg-orange-500/30 hover:border-orange-500/50 transition-all text-sm font-semibold"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Github className="w-4 h-4" />
                         <span>Code</span>
                       </a>
                     )}
-                    {(project.liveUrl || project.liveDemo) && (
-                      <a
-                        href={project.liveUrl || project.liveDemo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white hover:from-[#ff8c42] hover:to-[#ff6b35] transition-all text-sm font-semibold orange-glow-hover transform hover:scale-105"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        <span>Live</span>
-                      </a>
-                    )}
+                    <a
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white hover:from-[#ff8c42] hover:to-[#ff6b35] transition-all text-sm font-semibold"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Live</span>
+                    </a>
                   </div>
                 </div>
-
-                {/* 3D Depth Effect - Corner Accent */}
-                <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-gradient-to-br from-orange-500/0 to-orange-500/30 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                {/* Tilt Shadow Effect */}
-                <div className="absolute inset-0 rounded-2xl shadow-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ boxShadow: '0 25px 50px -12px rgba(255, 107, 53, 0.3)' }}></div>
-              </div>
+              </SpotlightCard>
             </AnimatedContent>
           ))}
         </div>
@@ -162,7 +187,12 @@ const Projects = ({ darkMode }) => {
             <div className="inline-flex items-center gap-6 glass-card rounded-2xl px-8 py-4 border-orange-glow">
               <div className="flex items-center gap-2">
                 <Code2 className="w-5 h-5 text-[#ff6b35]" />
-                <span className="text-[#e0e0e0] font-medium">{projects.length}+ Projects</span>
+                <span className="text-[#e0e0e0] font-medium">{allProjects.length}+ Projects</span>
+              </div>
+              <div className="w-px h-6 bg-orange-500/30"></div>
+              <div className="flex items-center gap-2">
+                <Globe className="w-5 h-5 text-emerald-500" />
+                <span className="text-[#e0e0e0] font-medium">{deployedProjects.length} Deployed</span>
               </div>
               <div className="w-px h-6 bg-orange-500/30"></div>
               <div className="flex gap-1">
@@ -174,18 +204,6 @@ const Projects = ({ darkMode }) => {
           </div>
         </AnimatedContent>
       </div>
-
-      {/* CSS for 3D Tilt Effect */}
-      <style jsx>{`
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .group:hover {
-          transform: rotateX(2deg) rotateY(-2deg) translateY(-1rem) scale(1.05);
-          transform-style: preserve-3d;
-        }
-      `}</style>
     </section>
   );
 };

@@ -117,115 +117,6 @@
     "projects": [
         {
             "id": 1,
-            "name": "ECommerce",
-            "repoUrl": "https://github.com/Sunny496167/ECommerce",
-            "liveDemo": "https://sunny496167.github.io/ECommerce/",
-            "description": [
-                "A simple e-commerce project built with HTML, CSS, and JavaScript",
-                "Frontend-based implementation with static styling and interactive JavaScript functionality"
-            ],
-            "technologies": [
-                "HTML",
-                "CSS",
-                "JavaScript"
-            ]
-        },
-        {
-            "id": 2,
-            "name": "AdminDashboard",
-            "repoUrl": "https://github.com/Sunny496167/AdminDashboard",
-            "liveDemo": "https://sunny496167.github.io/AdminDashboard/",
-            "description": [
-                "A modern admin dashboard built with React and Vite",
-                "Responsive dashboard interface with component-based architecture using Vite for fast development"
-            ],
-            "technologies": [
-                "React",
-                "Vite",
-                "Tailwind CSS",
-                "JavaScript",
-                "ESLint",
-                "PostCSS"
-            ]
-        },
-        {
-            "id": 3,
-            "name": "Backend",
-            "repoUrl": "https://github.com/Sunny496167/backend",
-            "description": [
-                "First backend project following 'chai aur backend' video series",
-                "Educational backend implementation using vanilla JavaScript and Node.js concepts"
-            ],
-            "technologies": [
-                "JavaScript",
-                "Node.js"
-            ]
-        },
-        {
-            "id": 4,
-            "name": "bankModernApp",
-            "repoUrl": "https://github.com/Sunny496167/bankModernApp",
-            "liveDemo": "https://sunny496167.github.io/bankModernApp/",
-            "description": [
-                "Modern banking application interface built with React and Vite",
-                "Full-stack frontend application with responsive design and modern web technologies"
-            ],
-            "technologies": [
-                "React",
-                "Vite",
-                "Tailwind CSS",
-                "JavaScript"
-            ]
-        },
-        {
-            "id": 5,
-            "name": "AppleWeb",
-            "repoUrl": "https://github.com/Sunny496167/AppleWeb",
-            "description": [
-                "Apple-themed web application built with React and Vite",
-                "Modern web design implementation using React framework with Tailwind CSS styling"
-            ],
-            "technologies": [
-                "React",
-                "Vite",
-                "Tailwind CSS",
-                "JavaScript",
-                "CSS"
-            ]
-        },
-        {
-            "id": 6,
-            "name": "ExcuseGenerator",
-            "repoUrl": "https://github.com/Sunny496167/ExcuseGenerator",
-            "description": [
-                "Full-stack excuse generator application with separate frontend and backend",
-                "Interactive application that generates excuses with both client-side and server-side components"
-            ],
-            "technologies": [
-                "JavaScript",
-                "HTML",
-                "CSS",
-                "Frontend",
-                "Backend"
-            ]
-        },
-        {
-            "id": 7,
-            "name": "Portfolio",
-            "repoUrl": "https://github.com/Sunny496167/Portfolio",
-            "liveDemo": "https://aboutsunny.vercel.app",
-            "description": [
-                "Personal portfolio website deployed on Vercel",
-                "Showcase of projects and professional profile using modern web technologies"
-            ],
-            "technologies": [
-                "JavaScript",
-                "Frontend",
-                "Vercel"
-            ]
-        },
-        {
-            "id": 8,
             "name": "Parkinsons-Disease",
             "repoUrl": "https://github.com/Sunny496167/Parkinsons-Disease",
             "liveDemo": "https://parkinsons-disease-rouge.vercel.app",
@@ -244,7 +135,152 @@
             ]
         },
         {
+            "id": 2,
+            "name": "EduAreana",
+            "repoUrl": "https://github.com/Sunny496167/EduAreana",
+            "liveDemo": "https://eduarena.vercel.app/",
+            "description": [
+                "Educational platform for students and teachers",
+                "Interactive learning environment with course management and student progress tracking"
+            ],
+            "technologies": [
+                "JavaScript",
+                "HTML",
+                "CSS",
+                "React",
+                "Node.js"
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Lylah Perfumes",
+            "repoUrl": "https://github.com/Sunny496167/lylahperfumes",
+            "liveDemo": "https://lylahperfumes.com",
+            "description": [
+                "Premium fragrance e-commerce platform with full admin dashboard",
+                "Complete digital commerce system with catalogue, wishlists, coupon codes, secure payments, and real-time order tracking"
+            ],
+            "technologies": [
+                "React",
+                "Node.js",
+                "MongoDB",
+                "Express",
+                "Tailwind CSS",
+                "Razorpay"
+            ]
+        },
+        {
+            "id": 4,
+            "name": "ECommerce",
+            "repoUrl": "https://github.com/Sunny496167/ECommerce",
+            "liveDemo": "https://sunny496167.github.io/ECommerce/",
+            "description": [
+                "A simple e-commerce project built with HTML, CSS, and JavaScript",
+                "Frontend-based implementation with static styling and interactive JavaScript functionality"
+            ],
+            "technologies": [
+                "HTML",
+                "CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "id": 5,
+            "name": "AdminDashboard",
+            "repoUrl": "https://github.com/Sunny496167/AdminDashboard",
+            "liveDemo": "https://sunny496167.github.io/AdminDashboard/",
+            "description": [
+                "A modern admin dashboard built with React and Vite",
+                "Responsive dashboard interface with component-based architecture using Vite for fast development"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "JavaScript",
+                "ESLint",
+                "PostCSS"
+            ]
+        },
+        {
+            "id": 6,
+            "name": "Backend",
+            "repoUrl": "https://github.com/Sunny496167/backend",
+            "description": [
+                "First backend project following 'chai aur backend' video series",
+                "Educational backend implementation using vanilla JavaScript and Node.js concepts"
+            ],
+            "technologies": [
+                "JavaScript",
+                "Node.js"
+            ]
+        },
+        {
+            "id": 7,
+            "name": "bankModernApp",
+            "repoUrl": "https://github.com/Sunny496167/bankModernApp",
+            "liveDemo": "https://sunny496167.github.io/bankModernApp/",
+            "description": [
+                "Modern banking application interface built with React and Vite",
+                "Full-stack frontend application with responsive design and modern web technologies"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "JavaScript"
+            ]
+        },
+        {
+            "id": 8,
+            "name": "AppleWeb",
+            "repoUrl": "https://github.com/Sunny496167/AppleWeb",
+            "liveDemo": "https://store2024.netlify.app/",
+            "description": [
+                "Apple-themed web application built with React and Vite",
+                "Modern web design implementation using React framework with Tailwind CSS styling"
+            ],
+            "technologies": [
+                "React",
+                "Vite",
+                "Tailwind CSS",
+                "JavaScript",
+                "CSS"
+            ]
+        },
+        {
             "id": 9,
+            "name": "ExcuseGenerator",
+            "repoUrl": "https://github.com/Sunny496167/ExcuseGenerator",
+            "description": [
+                "Full-stack excuse generator application with separate frontend and backend",
+                "Interactive application that generates excuses with both client-side and server-side components"
+            ],
+            "technologies": [
+                "JavaScript",
+                "HTML",
+                "CSS",
+                "Frontend",
+                "Backend"
+            ]
+        },
+        {
+            "id": 10,
+            "name": "Portfolio",
+            "repoUrl": "https://github.com/Sunny496167/Portfolio",
+            "liveDemo": "https://aboutsunny.vercel.app",
+            "description": [
+                "Personal portfolio website deployed on Vercel",
+                "Showcase of projects and professional profile using modern web technologies"
+            ],
+            "technologies": [
+                "JavaScript",
+                "Frontend",
+                "Vercel"
+            ]
+        },
+        {
+            "id": 11,
             "name": "AIChoiceHelper",
             "repoUrl": "https://github.com/Sunny496167/AIChoiceHelper",
             "description": [
@@ -260,7 +296,7 @@
             ]
         },
         {
-            "id": 10,
+            "id": 12,
             "name": "classRoomManagement",
             "repoUrl": "https://github.com/Sunny496167/classRoomManagement",
             "description": [
@@ -274,23 +310,6 @@
                 "ESLint",
                 "Docker",
                 "npm"
-            ]
-        },
-        {
-            "id": 11,
-            "name": "EduAreana",
-            "repoUrl": "https://github.com/Sunny496167/EduAreana",
-            "liveDemo": "https://eduarena.vercel.app/",
-            "description": [
-                "Educational platform for students and teachers",
-                "Interactive learning environment with course management and student progress tracking"
-            ],
-            "technologies": [
-                "JavaScript",
-                "HTML",
-                "CSS",
-                "React",
-                "Node.js"
             ]
         }
     ],
@@ -376,7 +395,7 @@
             "id": 1,
             "name": "SQL (Intermediate)",
             "issuer": "HackerRank",
-            "description": "Advanced JOINs, aggregation functions, complex subqueries"
+            "description": "Advanced JOINs, aggregation and subqueries"
         },
         {
             "id": 2,

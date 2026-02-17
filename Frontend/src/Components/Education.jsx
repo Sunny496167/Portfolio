@@ -2,6 +2,7 @@
 import { GraduationCap, Building2, Calendar } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
+import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
 
 const Education = ({ darkMode }) => {
@@ -56,7 +57,7 @@ const Education = ({ darkMode }) => {
                   {/* Card Container */}
                   <div className={`w-full md:w-5/12 ml-20 md:ml-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
                     {/* Education Card */}
-                    <div className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300 transform hover:-translate-y-2 hover:scale-105">
+                    <SpotlightCard className="glass-card rounded-2xl p-6 relative overflow-hidden group hover:border-orange-glow transition-all duration-300">
                       {/* Top Orange Accent */}
                       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
@@ -111,7 +112,7 @@ const Education = ({ darkMode }) => {
 
                       {/* Hover Effect - Corner Accent */}
                       <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-gradient-to-br from-orange-500/0 to-orange-500/20 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
+                    </SpotlightCard>
 
                     {/* Connecting Line from Dot to Card */}
                     <div className={`hidden md:block absolute top-1/2 ${index % 2 === 0 ? 'left-1/2 ml-3' : 'right-1/2 mr-3'} w-12 h-0.5 bg-gradient-to-${index % 2 === 0 ? 'r' : 'l'} from-[#ff6b35] to-transparent`}></div>
