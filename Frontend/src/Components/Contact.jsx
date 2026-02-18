@@ -1,17 +1,21 @@
 // Contact Section Component
-import { Mail, MapPin, Github, Linkedin, Send, MessageSquare, Phone } from "lucide-react";
+import { Mail, MapPin, Github, Linkedin, Send, MessageSquare, Phone, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import FadeContent from "../animations/FadeContent";
 import AnimatedContent from "../animations/AnimatedContent";
 import SpotlightCard from "../animations/SpotlightCard";
 import resumeData from "../data/resumeData.json";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 
 const Contact = ({ darkMode }) => {
+  const formRef = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
+  const [status, setStatus] = useState({ type: '', message: '' }); // 'success' | 'error' | 'loading' | ''
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,10 +24,37 @@ const Contact = ({ darkMode }) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    setIsLoading(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      await emailjs.sendForm(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        {
+          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+        }
+      );
+
+      setStatus({
+        type: 'success',
+        message: 'Thank you for connecting! I really appreciate you reaching out and will get back to you soon.'
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setStatus({
+        type: 'error',
+        message: 'Failed to send message. Please try again or email me directly.'
+      });
+    } finally {
+      setIsLoading(false);
+      // Auto-clear status after 5 seconds
+      setTimeout(() => setStatus({ type: '', message: '' }), 5000);
+    }
   };
 
   const contactInfo = [
@@ -199,7 +230,7 @@ const Contact = ({ darkMode }) => {
             <SpotlightCard className="glass-card rounded-3xl p-8 relative overflow-hidden border-orange-glow">
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f]"></div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Input */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-white mb-2">
@@ -251,13 +282,43 @@ const Contact = ({ darkMode }) => {
                   />
                 </div>
 
+                {/* Status Message */}
+                {status.message && (
+                  <div
+                    className={`flex items-center gap-3 p-4 rounded-xl border transition-all duration-300 ${status.type === 'success'
+                      ? 'bg-green-500/10 border-green-500/30 text-green-400'
+                      : 'bg-red-500/10 border-red-500/30 text-red-400'
+                      }`}
+                  >
+                    {status.type === 'success' ? (
+                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                    )}
+                    <p className="text-sm font-medium">{status.message}</p>
+                  </div>
+                )}
+
                 {/* Submit Button with Glow */}
                 <button
                   type="submit"
-                  className="w-full px-8 py-4 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white font-semibold text-lg flex items-center justify-center gap-3 hover:from-[#ff8c42] hover:to-[#ff6b35] transition-all duration-300 transform hover:scale-105 orange-glow-hover group"
+                  disabled={isLoading}
+                  className={`w-full px-8 py-4 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white font-semibold text-lg flex items-center justify-center gap-3 transition-all duration-300 transform group ${isLoading
+                    ? 'opacity-70 cursor-not-allowed scale-100'
+                    : 'hover:from-[#ff8c42] hover:to-[#ff6b35] hover:scale-105 orange-glow-hover'
+                    }`}
                 >
-                  <span>Send Message</span>
-                  <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </>
+                  )}
                 </button>
               </form>
             </SpotlightCard>
