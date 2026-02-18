@@ -184,6 +184,7 @@ const Hero = ({ darkMode }) => {
                 <img
                   src="/ProfilePic.png"
                   alt={resumeData.personalInfo.name}
+                  loading="lazy"
                   className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
                 />
                 {/* Subtle overlay for depth */}
