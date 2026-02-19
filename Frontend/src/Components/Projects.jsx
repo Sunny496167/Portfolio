@@ -63,44 +63,72 @@ const Projects = ({ darkMode }) => {
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] z-10"></div>
 
                 {/* Live Site Iframe Preview */}
-                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#1a0f0a] to-black">
-                  {/* Loading skeleton */}
-                  {!loadedIframes[project.id] && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 z-10">
-                      <Globe className="w-8 h-8 text-[#ff6b35] animate-pulse" />
-                      <span className="text-xs text-[#a0a0a0]">Loading preview...</span>
+                {/* Live Site Iframe Preview or Placeholder */}
+                <div className="relative h-48 overflow-hidden bg-gradient-to-br from-[#1a0f0a] to-black group-hover:scale-105 transition-transform duration-500">
+                  {/* If preview is active, show iframe */}
+                  {loadedIframes[project.id] ? (
+                    <iframe
+                      src={project.liveDemo}
+                      title={`${project.name} preview`}
+                      className="absolute top-0 left-0 border-0 w-full h-full"
+                      style={{
+                        width: '1280px',
+                        height: '720px',
+                        transform: 'scale(0.28)',
+                        transformOrigin: 'top left',
+                      }}
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin"
+                    />
+                  ) : (
+                    /* Placeholder with Load Button */
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20">
+                      <div className="w-12 h-12 mb-3 rounded-full bg-orange-500/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Globe className="w-6 h-6 text-[#ff6b35]" />
+                      </div>
+                      <h4 className="text-white font-medium mb-1">Live Preview</h4>
+                      <p className="text-xs text-[#a0a0a0] mb-4">Click to load interactive preview</p>
+
+                      <div className="flex gap-3">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleIframeLoad(project.id);
+                          }}
+                          className="px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/30 text-[#ff6b35] text-xs font-semibold hover:bg-orange-500/20 transition-all flex items-center gap-2"
+                        >
+                          <Globe className="w-3 h-3" />
+                          Load Preview
+                        </button>
+                        <a
+                          href={project.liveDemo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white text-xs font-semibold hover:bg-white/10 transition-all flex items-center gap-2"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          Visit
+                        </a>
+                      </div>
                     </div>
                   )}
 
-                  {/* Iframe - scaled down website preview */}
-                  <iframe
-                    src={project.liveDemo}
-                    title={`${project.name} preview`}
-                    className="absolute top-0 left-0 border-0 pointer-events-none"
-                    style={{
-                      width: '1280px',
-                      height: '720px',
-                      transform: 'scale(0.28)',
-                      transformOrigin: 'top left',
-                    }}
-                    loading="lazy"
-                    sandbox="allow-scripts allow-same-origin"
-                    onLoad={() => handleIframeLoad(project.id)}
-                  />
-
-                  {/* Hover overlay with "Visit" prompt */}
-                  <a
-                    href={project.liveDemo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 z-20 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-center justify-center"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white text-sm font-semibold">
-                      <ExternalLink className="w-4 h-4" />
-                      Visit Site
-                    </div>
-                  </a>
+                  {/* Hover overlay with "Visit" prompt (only visible when hovering AND loaded) */}
+                  {loadedIframes[project.id] && (
+                    <a
+                      href={project.liveDemo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 z-20 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-sm"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] text-white text-sm font-semibold transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <ExternalLink className="w-4 h-4" />
+                        Visit Live Site
+                      </div>
+                    </a>
+                  )}
 
                   {/* Live badge */}
                   <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-sm border border-emerald-500/30">
