@@ -169,6 +169,9 @@ const Achievements = ({ darkMode }) => {
                             {item.organization && (
                               <p className="text-sm text-[#a0a0a0] mt-1">{item.organization}</p>
                             )}
+                            {item.duration && (
+                              <p className="text-xs text-[#ff6b35] mt-1 font-medium">{item.duration}</p>
+                            )}
                             {item.achievement && (
                               <p className="text-sm text-[#e0e0e0] mt-2">{item.achievement}</p>
                             )}

@@ -378,10 +378,22 @@
             "id": 1,
             "title": "Tech Team Lead",
             "organization": "Institution's Innovation Council (IIC) TMSL",
+            "duration": "Jun 2025 - Present",
             "achievements": [
                 "Led 10-member technical team",
                 "Organized events with 150+ participants",
                 "Mentored 10+ students in competitive hackathons"
+            ]
+        },
+        {
+            "id": 3,
+            "title": "Member",
+            "organization": "IIC TMSL Tech Wing",
+            "duration": "Apr 2024 - May 2025",
+            "achievements": [
+                "Collaborated on web development projects and team management initiatives",
+                "Organized technical events including hackathons and workshops",
+                "Mentored juniors and conducted training sessions"
             ]
         },
         {
