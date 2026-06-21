@@ -133,7 +133,7 @@ const Hero = ({ darkMode }) => {
                 <span className="relative z-10">Let's Work Together</span>
               </a>
               <a
-                href="/src/data/Sunny Kumar_Resume.pdf"
+                href="/Sunny_Kumar_Resume.pdf"
                 download="Sunny_Kumar_Resume.pdf"
                 className="group border border-[#ff6b35]/40 text-[#ff6b35] px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-[#ff6b35]/10 hover:border-[#ff6b35]/70 min-h-[56px] flex items-center justify-center gap-3"
               >

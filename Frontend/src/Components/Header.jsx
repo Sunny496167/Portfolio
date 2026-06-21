@@ -127,7 +127,7 @@ const Header = ({ darkMode, activeSection }) => {
                 <span>Hire Me</span>
               </a>
               <a
-                href="/src/data/Sunny Kumar_Resume.pdf"
+                href="/Sunny_Kumar_Resume.pdf"
                 download="Sunny_Kumar_Resume.pdf"
                 className={`px-6 py-2.5 rounded-full border-2 border-[#ff6b35] text-[#ff6b35] font-semibold flex items-center gap-2 hover:bg-[#ff6b35]/10 transition-all duration-300 transform hover:scale-105 ${isScrolled ? 'text-sm' : 'text-base'
                   }`}
@@ -225,7 +225,7 @@ const Header = ({ darkMode, activeSection }) => {
                 <span>Hire Me</span>
               </a>
               <a
-                href="/src/data/Sunny Kumar_Resume.pdf"
+                href="/Sunny_Kumar_Resume.pdf"
                 download="Sunny_Kumar_Resume.pdf"
                 className="w-full px-6 py-3 rounded-full border-2 border-[#ff6b35] text-[#ff6b35] font-semibold flex items-center justify-center gap-2 hover:bg-[#ff6b35]/10 transition-all duration-300"
               >
