@@ -21,6 +21,10 @@ const Blogs = ({ darkMode }) => {
         setTimeout(() => setSelectedBlog(null), 300);
     };
 
+    const sortedBlogs = [...blogsData.blogs].sort(
+        (a, b) => new Date(b.publishDate) - new Date(a.publishDate)
+    );
+
     return (
         <>
             <section
@@ -32,7 +36,7 @@ const Blogs = ({ darkMode }) => {
                     <div className="absolute top-1/4 right-10 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
                     <div className="absolute bottom-1/4 left-10 w-[500px] h-[500px] bg-orange-600/5 rounded-full blur-3xl"></div>
                 </div>
-
+                
                 <div className="max-w-7xl mx-auto relative z-10">
                     {/* Section Header */}
                     <div className="text-center mb-16 space-y-4">
@@ -52,7 +56,7 @@ const Blogs = ({ darkMode }) => {
 
                     {/* Blog Grid */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {blogsData.blogs.map((blog, index) => (
+                        {sortedBlogs.map((blog, index) => (
                             <SpotlightCard
                                 key={blog.id}
                                 className="glass-card rounded-2xl overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5),0_0_20px_rgba(255,107,53,0.3)]"

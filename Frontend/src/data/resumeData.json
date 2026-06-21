@@ -116,6 +116,26 @@
     ],
     "projects": [
         {
+            "id": 13,
+            "name": "PrepMockify",
+            "liveDemo": "https://prepmockify.me",
+            "description": [
+                "Developed a comprehensive mock examination platform featuring advanced proctoring with anti-cheat mechanisms, multilingual support, and real-time state persistence using React, Fastify, MongoDB, and Redis, designed to support 10,000+ users.",
+                "Engineered a complete financial ecosystem integrating Razorpay payments, internal wallet system, automated prize distribution, and contest lifecycle management with JWT authentication and Google OAuth for secure user access.",
+                "Built scalable community features including live chat, Redis-powered leaderboards, and contest scheduling with automated daily/weekly recurrence, implementing monolith architecture for optimal performance and user engagement."
+            ],
+            "technologies": [
+                "React",
+                "Fastify",
+                "MongoDB",
+                "Redis",
+                "Razorpay",
+                "Socket.io",
+                "JWT",
+                "OAuth 2.0"
+            ]
+        },
+        {
             "id": 1,
             "name": "Parkinsons-Disease",
             "repoUrl": "https://github.com/Sunny496167/Parkinsons-Disease",

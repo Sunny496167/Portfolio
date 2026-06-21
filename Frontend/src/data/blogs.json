@@ -461,6 +461,205 @@
                     "text": "*Built with React, Node.js, MongoDB, Redis, Google Cloud Run, and a lot of late nights. — Sunny Kumar, Full-Stack Developer*"
                 }
             ]
+        },
+        {
+            "id": 3,
+            "title": "Bypassing Port Blocks: Sending Emails reliably with OAuth2 and Gmail API",
+            "slug": "smtp-port-blocks-gmail-oauth2-solution",
+            "excerpt": "Why do standard SMTP setups fail on Vercel, Render, or other cloud instances? Discover why outbound email ports (25, 465, 587) are blocked, and learn step-by-step how to configure a secure Google OAuth2 API setup to send emails via HTTP.",
+            "author": "Sunny Kumar",
+            "publishDate": "2026-06-21",
+            "readTime": "10 min",
+            "tags": [
+                "Backend",
+                "Node.js",
+                "API Integration",
+                "OAuth2",
+                "Security"
+            ],
+            "category": "Backend Engineering",
+            "heroImage": "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=1200&h=600&fit=crop",
+            "content": [
+                {
+                    "type": "paragraph",
+                    "text": "Every developer building their first full-stack application eventually faces the need to send transactional emails—be it for user verification, password resets, or order confirmations. The classic path is simple: install **Nodemailer**, write 15 lines of configuration using standard SMTP (Port 587 or 465) with a personal email and password, and run it. On your local machine, it works like a charm. You hit submit, and the email arrives instantly."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Then, you deploy the app to a cloud platform like **Vercel, Render, Railway, or Heroku**. You trigger the email action, and... the server spins infinitely before finally crashing with a `Connection Timeout` or `ETIMEDOUT` error. Let's look at why this happens and how to implement a production-ready solution using **OAuth2 and the Google Gmail API**."
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "The Culprit: Why SMTP Fails on Cloud Instances"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "The root cause of this failure isn't your code. It's a security guardrail enforced by almost every cloud hosting provider. **Outbound traffic on standard SMTP ports (Port 25, Port 465, and Port 587) is strictly blocked on free or standard cloud tiers.**"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Why do they do this? Spam prevention. If cloud providers allowed unrestricted outbound SMTP connections, spammers would spin up thousands of free accounts, deploy mailer scripts, and turn the cloud platform's IP addresses into spam relays. To protect their network reputation, providers block these ports entirely."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Additionally, Google has deprecation-retired 'Less Secure Apps' passwords for standard Gmail logins. While 'App Passwords' under 2-Factor Authentication are still available, they are heavily rate-limited and frequently get flagged or blocked when triggered from dynamic cloud IPs. The bottom line? Standard SMTP is a fragile, anti-pattern choice for modern cloud deployments."
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "The Solution: Shifting from SMTP to HTTP APIs"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Since outbound TCP ports like 587 and 465 are blocked, how do we send mail? **We make standard HTTP requests instead.** By enabling the **Gmail API** in Google Cloud, we can send emails by calling Google's secure REST endpoints over Port 443 (standard HTTPS), which is never blocked."
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Instead of storing our raw email password (or App Password) on the server, we authenticate our HTTP requests using **OAuth 2.0**. This architecture uses three security components:"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "**Client ID & Client Secret:** Identifies and authenticates your server application with Google.",
+                        "**Access Token:** A short-lived credential (valid for 1 hour) used to authorize the API call to send emails.",
+                        "**Refresh Token:** A long-lived credential stored on your server that automatically requests a new Access Token whenever the current one expires."
+                    ]
+                },
+                {
+                    "type": "image",
+                    "src": "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=1200&h=600&fit=crop",
+                    "alt": "Google OAuth2 Flow Diagram",
+                    "caption": "Secure HTTP-based email delivery utilizing Google OAuth2 authorization"
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "Step-by-Step Guide: Generating Credentials"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "To set this up, we need to create a project in the Google Cloud Console and generate our OAuth2 tokens. Here is the step-by-step procedure:"
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Step 1: Create a Google Cloud Project"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Navigate to the [Google Cloud Console](https://console.cloud.google.com/). Click on the project dropdown in the top bar, select **New Project**, give it a name (e.g., 'Portfolio Email Service'), and click **Create**."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Step 2: Enable the Gmail API"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "In the left-hand sidebar, go to **APIs & Services > Library**. Search for **Gmail API**, select it, and click **Enable**."
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Step 3: Configure the OAuth Consent Screen"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Go to **APIs & Services > OAuth consent screen**.",
+                        "Choose **External** as the User Type and click **Create**.",
+                        "Fill in the required fields: **App name**, **User support email**, and **Developer contact information**. Click **Save and Continue**.",
+                        "Skip the Scopes tab (click Save and Continue).",
+                        "**Crucial Step:** Under **Test users**, click **Add Users** and enter the Gmail address you intend to send emails from. Since your app is in 'Testing' mode, only listed test accounts can authorize and generate tokens. Click Save and Continue, and return to Dashboard."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Step 4: Create Client Credentials"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Navigate to **APIs & Services > Credentials**.",
+                        "Click **Create Credentials** at the top and select **OAuth client ID**.",
+                        "Under Application type, choose **Web application**.",
+                        "Add a name (e.g., 'Web Client').",
+                        "Under **Authorized redirect URIs**, add `https://developers.google.com/oauthplayground`. (We will use this playground to safely authorize the app and generate our refresh token).",
+                        "Click **Create**. A modal will pop up displaying your **Client ID** and **Client Secret**. Copy these and save them securely."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "level": 3,
+                    "text": "Step 5: Get the Refresh Token via OAuth2 Playground"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "Open the [Google OAuth2 Playground](https://developers.google.com/oauthplayground).",
+                        "Click the **Settings cog icon** (top-right corner). Check the box for **Use your own OAuth credentials**. Enter your **OAuth Client ID** and **OAuth Client Secret** into their respective inputs.",
+                        "On the left panel, scroll down to **Gmail API v1**, expand it, select `https://mail.google.com/`, and click **Authorize APIs**.",
+                        "Sign in with your Google test user account. If you see a warning screen saying 'Google hasn't verified this app', click **Advanced** and then **Go to Web Client (unsafe)** to proceed.",
+                        "Once authenticated, you will be redirected back to the playground. Click **Exchange authorization code for tokens**.",
+                        "Copy the generated **Refresh Token** shown in the inputs."
+                    ]
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "Implementing in Node.js with Nodemailer"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Now that we have our credentials, we can integrate them into our Node.js server. Install Nodemailer and the official Google API library:"
+                },
+                {
+                    "type": "code",
+                    "language": "bash",
+                    "code": "npm install nodemailer googleapis"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Next, update your environment configuration (`.env`) with the tokens:"
+                },
+                {
+                    "type": "code",
+                    "language": "text",
+                    "code": "EMAIL_USER=your-email@gmail.com\nCLIENT_ID=your-google-client-id.apps.googleusercontent.com\nCLIENT_SECRET=your-google-client-secret\nREFRESH_TOKEN=your-google-refresh-token"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Here is the backend implementation script to configure the Nodemailer transporter with the OAuth2 credentials. The code uses the `googleapis` library to retrieve OAuth client instances and dynamically renew authorization header tokens:"
+                },
+                {
+                    "type": "code",
+                    "language": "javascript",
+                    "code": "const nodemailer = require('nodemailer');\nconst { google } = require('googleapis');\nconst OAuth2 = google.auth.OAuth2;\n\nconst sendEmail = async (options) => {\n  try {\n    // Initialize OAuth2 Client\n    const oauth2Client = new OAuth2(\n      process.env.CLIENT_ID,\n      process.env.CLIENT_SECRET,\n      'https://developers.google.com/oauthplayground'\n    );\n\n    // Set Refresh Token\n    oauth2Client.setCredentials({\n      refresh_token: process.env.REFRESH_TOKEN,\n    });\n\n    // Generate dynamic Access Token\n    const accessTokenResponse = await oauth2Client.getAccessToken();\n    const accessToken = accessTokenResponse.token;\n\n    // Configure Transporter with OAuth2 credentials\n    const transporter = nodemailer.createTransport({\n      service: 'gmail',\n      auth: {\n        type: 'OAuth2',\n        user: process.env.EMAIL_USER,\n        clientId: process.env.CLIENT_ID,\n        clientSecret: process.env.CLIENT_SECRET,\n        refreshToken: process.env.REFRESH_TOKEN,\n        accessToken: accessToken,\n      },\n    });\n\n    // Email message settings\n    const mailOptions = {\n      from: `Portfolio Inquiry <${process.env.EMAIL_USER}>`,\n      to: process.env.EMAIL_USER,\n      subject: options.subject,\n      text: options.message,\n      html: `<p>${options.message}</p>`,\n    };\n\n    // Dispatch email\n    const info = await transporter.sendMail(mailOptions);\n    console.log('Email sent successfully: %s', info.messageId);\n    return info;\n  } catch (error) {\n    console.error('Email system failure:', error);\n    throw error;\n  }\n};"
+                },
+                {
+                    "type": "heading",
+                    "level": 2,
+                    "text": "Summary and Benefits"
+                },
+                {
+                    "type": "paragraph",
+                    "text": "By moving away from basic SMTP authentication to an OAuth2-powered HTTP mechanism, your contact forms and notification pipelines gain a massive boost in safety and reliability:"
+                },
+                {
+                    "type": "list",
+                    "items": [
+                        "**Bypasses Server Firewalls:** Sending mail over standard HTTPS Port 443 routes successfully across free cloud instances, completely bypassing outbound TCP port blocks (25, 465, 587).",
+                        "**Eliminates Password Exposures:** You never store cleartext passwords, App Passwords, or sensitive account master keys on your servers. If a server is compromised, credentials can be revoked instantly from the Cloud Console.",
+                        "**Continuous Delivery:** The refresh token acts as a persistent trust handshake, obtaining new access tokens automatically, ensuring emails never fail to deliver due to authentication expirations."
+                    ]
+                },
+                {
+                    "type": "paragraph",
+                    "text": "Now, whether your app is hosted on a free Render tier, a scale-to-zero container on Google Cloud Run, or a Vercel serverless function, your email notifications will arrive securely and instantly every single time. Happy coding!"
+                }
+            ]
         }
     ]
 }
