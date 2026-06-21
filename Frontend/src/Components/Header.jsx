@@ -1,6 +1,6 @@
 // Header Component
 import { useState, useEffect } from "react";
-import { Home, Code2, FolderGit2, Mail, User, Menu, X, Download, Briefcase, BookOpen } from "lucide-react";
+import { Home, Code2, FolderGit2, Mail, User, Menu, X, Download, Briefcase, BookOpen, Github } from "lucide-react";
 import resumeData from "../data/resumeData.json";
 
 const Header = ({ darkMode, activeSection }) => {
@@ -34,6 +34,7 @@ const Header = ({ darkMode, activeSection }) => {
     { name: 'Home', href: '#hero', icon: Home },
     { name: 'About', href: '#about', icon: User },
     { name: 'Skills', href: '#skills', icon: Code2 },
+    { name: 'GitHub', href: '#github', icon: Github },
     { name: 'Projects', href: '#projects', icon: FolderGit2 },
     { name: 'Blogs', href: '#blogs', icon: BookOpen },
     { name: 'Contact', href: '#contact', icon: Mail }
