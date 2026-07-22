@@ -104,7 +104,7 @@ const GithubActivity = ({ darkMode }) => {
             <div className="glass-card rounded-3xl p-6 sm:p-8 border-orange-glow flex items-center justify-center relative overflow-hidden group min-h-[220px]">
               <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] opacity-60"></div>
               <img
-                src="https://github-readme-stats-git-master-anuraghazra.vercel.app/api?username=Sunny496167&show_icons=true&theme=transparent&title_color=ff6b35&text_color=e0e0e0&icon_color=ff8c5a&hide_border=true&include_all_commits=true"
+                src="https://github-readme-stats.vercel.app/api?username=Sunny496167&show_icons=true&theme=transparent&title_color=ff6b35&text_color=e0e0e0&icon_color=ff8c5a&hide_border=true&include_all_commits=true"
                 alt="Sunny's GitHub Stats"
                 className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
@@ -126,7 +126,7 @@ const GithubActivity = ({ darkMode }) => {
             <div className="glass-card rounded-3xl p-6 sm:p-8 border-orange-glow flex items-center justify-center relative overflow-hidden group min-h-[220px]">
               <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#ff6b35] to-[#d94f1f] opacity-60"></div>
               <img
-                src="https://github-readme-stats-git-master-anuraghazra.vercel.app/api/top-langs/?username=Sunny496167&theme=transparent&title_color=ff6b35&text_color=e0e0e0&hide_border=true&layout=compact"
+                src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sunny496167&theme=transparent&title_color=ff6b35&text_color=e0e0e0&hide_border=true&layout=compact"
                 alt="Sunny's Top Languages"
                 className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
