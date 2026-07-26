@@ -26,6 +26,8 @@ const Skills = ({ darkMode }) => {
         { name: "CSS", image: "/CSS.webp", color: "#1572b6" },
         { name: "Tailwind CSS", image: "/tailwind-css.png", color: "#06b6d4" },
         { name: "React", image: "/react.png", color: "#61dafb" },
+        { name: "Redux Toolkit", image: "/Redux.png", color: "#764abc" },
+        { name: "React Native", image: "/reactNative.png", color: "#61dafb" },
         { name: "Next.js", image: "/Next.png", color: "#a0a0a0" },
       ],
     },

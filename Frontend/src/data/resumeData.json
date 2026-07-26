@@ -48,7 +48,8 @@
             "CSS3",
             "Tailwind CSS",
             "Responsive Design",
-            "NextJs"
+            "NextJs",
+            "React Native"
         ],
         "backendTechnologies": [
             "Node.js",
@@ -89,6 +90,19 @@
     "internships": [
         {
             "id": 1,
+            "title": "Software Engineer",
+            "company": "IQVenus Technologies",
+            "location": "Kolkata, West Bengal",
+            "duration": "Jan 2026 - Continue",
+            "responsibilities": [
+                "Developed, built, and launched cross-platform mobile applications, managing deployment to the Google Play Store",
+                "Designed and built modern, responsive websites using React.js and Tailwind CSS",
+                "Integrated advanced RESTful APIs and converted design mockups into pixel-perfect interfaces",
+                "Worked with Git/GitHub for version control and collaborated in cross-functional teams"
+            ]
+        },
+        {
+            "id": 2,
             "title": "Software Development Engineer Intern",
             "company": "IQApex Labs",
             "location": "Kolkata, India",
@@ -101,10 +115,10 @@
             ]
         },
         {
-            "id": 2,
+            "id": 3,
             "title": "Software Development Engineer Intern",
             "company": "IQVenus Technologies",
-            "location": "Guwahati, India",
+            "location": "Kolkata, India",
             "duration": "Oct 2024 - Dec 2024",
             "responsibilities": [
                 "Developed frontend solutions for 2 client-facing projects, focusing on responsive UI/UX enhancements",
