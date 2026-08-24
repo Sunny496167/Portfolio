@@ -17,7 +17,7 @@
             "degree": "Bachelor of Technology in Information Technology",
             "institution": "Techno Main Salt Lake, Kolkata",
             "duration": "Sep 2022 - Jun 2026 (Expected)",
-            "grade": "CGPA: 7.05/10"
+            "grade": "CGPA: 7.13/10"
         },
         {
             "id": 2,
@@ -93,7 +93,7 @@
             "title": "Software Engineer",
             "company": "IQVenus Technologies",
             "location": "Kolkata, West Bengal",
-            "duration": "Jan 2026 - Continue",
+            "duration": "Feb 2026 - June 2026",
             "responsibilities": [
                 "Developed, built, and launched cross-platform mobile applications, managing deployment to the Google Play Store",
                 "Designed and built modern, responsive websites using React.js and Tailwind CSS",
@@ -129,6 +129,47 @@
         }
     ],
     "projects": [
+        {
+            "id": 15,
+            "name": "MathMagic",
+            "repoUrl": "https://github.com/Sunny496167/MathMagic",
+            "description": [
+                "Gamified mathematics learning platform for Grades 1–5 with a React Native (Expo SDK 52) mobile app and an enterprise-grade Node.js/Express/MongoDB/Redis backend REST API.",
+                "Features a hierarchical curriculum engine (Grades → Topics → Exercises → Practice Levels → Questions), 5 real-time arcade mini-games with combo multipliers, daily missions, XP streaks, and an embedded AI math tutor chatbot.",
+                "Built with JWT refresh-token rotation, replay-attack detection, Google OAuth, Zod validation, and an in-app admin CMS for bulk curriculum management — designed to scale to 10,000+ concurrent users."
+            ],
+            "technologies": [
+                "React Native",
+                "Expo SDK 52",
+                "Node.js",
+                "Express",
+                "MongoDB",
+                "Redis",
+                "TanStack Query",
+                "NativeWind",
+                "JWT",
+                "Google OAuth"
+            ]
+        },
+        {
+            "id": 14,
+            "name": "Grounded Brew",
+            "repoUrl": "https://github.com/Sunny496167/AnimatedWebsite",
+            "liveDemo": "https://coffee-shop-gamma-ten-52.vercel.app",
+            "description": [
+                "Immersive scroll-scrubbed coffee shop website powered by a custom zero-dependency scrub engine (lets-scroll), driving cinematic frame-by-frame video playback via scroll position.",
+                "Features 4 animated scenes (Farm → Roastery → Café → Cup) with seamless connector clips, per-scene accent colours, drifting particle atmosphere overlay, and a branded top navigation bar.",
+                "Mobile-optimised with separate lighter clips for phones, custom Fraunces + Plus Jakarta Sans typography, and a warm parchment palette — deployed on Vercel with no build step required."
+            ],
+            "technologies": [
+                "HTML5",
+                "Vanilla JS",
+                "CSS3",
+                "Scroll Scrubbing",
+                "Video API",
+                "Vercel"
+            ]
+        },
         {
             "id": 13,
             "name": "PrepMockify",
